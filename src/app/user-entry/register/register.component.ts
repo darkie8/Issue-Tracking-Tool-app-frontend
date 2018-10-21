@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Router } from '../../../../node_modules/@angular/router';
+import { ToastsManager } from '../../../../node_modules/ng6-toastr';
+import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(service: IssueTrackingServiceService) { }
 
   ngOnInit() {
   }
