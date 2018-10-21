@@ -62,9 +62,8 @@ export class RegisterComponent implements OnInit {
         success => {
           console.log(success);
           if (success.status === 200) {
-            this.toastr.success('registering successful');
-            setImmediate(() => this.toastr.success(`A verification message has been sent to ${data.email}`));
             setTimeout(() => {
+              this.toastr.success(`A verification message has been sent to ${data.email}`);
               this.goToLogin();
             }, 2000);
           } else {
