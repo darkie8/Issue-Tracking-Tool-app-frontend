@@ -11,7 +11,7 @@ import { IssueDescriptionViewModule } from './issue-description-view/issue-descr
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './user-entry/login/login.component';
-import { HttpClient } from 'selenium-webdriver/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { HttpClient } from 'selenium-webdriver/http';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

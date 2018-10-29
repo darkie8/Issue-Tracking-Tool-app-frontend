@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: Arvo;
+    src: url(assets/font/Arvo-Regular.ttf) format("truetype");
+  }
+  @font-face {
+      font-family: Francois One;
+      src: url(assets/font/FrancoisOne-Regular.ttf) format('truetype')
+  }
+  @font-face {
+      font-family: Josephin Slab;
+      src: url(assets/font/JosefinSlab-Bold.ttf) format('truetype')
+  }
