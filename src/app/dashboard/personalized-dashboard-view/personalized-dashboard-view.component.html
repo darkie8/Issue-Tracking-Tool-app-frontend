@@ -1,3 +1,192 @@
-<p>
-  personalized-dashboard-view works!
-</p>
+<div class="card" style="overflow: hidden">
+  <!--navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+    <a class="navbar-brand h1" href="#">
+      <img src="../../../assets/issusicon.png" style="width: 25px;height: 25px;background-color: azure" class="rounded-circle">
+      Issus</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="../../../assets/user.svg" style="width: 30px;height: 30px">
+            Contact
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">
+              <img src="../../../assets/facebok.png" style="width: 30px;height: 30px">
+              facebook</a>
+            <a class="dropdown-item" href="#">
+              <img src="../../../assets/link.png" style="width: 30px;height: 30px">
+              linkedin</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <img src="../../../assets/twitter.svg" style="width: 30px;height: 30px">
+              twitter</a>
+            <a class="dropdown-item" href="#">
+              <img src="../../../assets/github.png" style="width: 30px;height: 30px">
+              github</a>
+            <a class="dropdown-item" href="#">
+              <img src="../../../assets/gmail.svg" style="width: 30px;height: 30px">
+              gmail</a>
+          </div>
+        </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <img src="../../../assets/logout.png" style="width: 30px;height: 30px">
+
+          Logout</button>
+      </form>
+
+    </div>
+  </nav>
+  <!--secondary info bar-->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            <img src="../../../assets/dashboard_1195952.png" style="width: 30px;height: 30px">
+            Dashboard <span class="sr-only">(current)</span></a>
+        </li>
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <!--user info-->
+
+  <div class="jumbotron">
+    <h1 class="display-4">Hello, User!</h1>
+    <p class="lead">Assigned Issues: <span></span>
+      <br>Created Issues: <span></span></p>
+    <hr class="my-4">
+    <p>Create new Issue by clicking the button </p>
+    <a class="btn btn-outline-dark" href="#" role="button">
+      <img src="../../../assets/plus.jpg" style="width: 30px;height: 30px" class="rounded-circle">
+      Create</a>
+    <br>
+    <!--table about issues-->
+    <div class="card mt-3">
+      <h5 class="card-header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <!--column sorting-->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img src="../../../assets/sorting.svg" style="width: 20px;height: 20px">
+                  Coloumn sorting
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">
+                    <img src="../../../assets/statussorting.png" style="width: 30px;height: 30px">
+                    Status</a>
+                  <a class="dropdown-item" href="#">
+                    <img src="../../../assets/titlesorting.png" style="width: 30px;height: 30px">
+                    Title</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">
+                    <img src="../../../assets/datesorting.svg" style="width: 30px;height: 30px">
+                    Date</a>
+                  <a class="dropdown-item" href="#">
+                    <img src="../../../assets/user.svg" style="width: 30px;height: 30px">
+                    Reporter</a>
+                </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <img src="../../../assets/sorting.svg" style="width: 20px;height: 20px">
+                    Coloumn sorting
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">
+                      <img src="../../../assets/assigned.png" style="width: 30px;height: 30px">
+                      Assigned</a>
+                    <a class="dropdown-item" href="#">
+                      <img src="../../../assets/edit.png" style="width: 30px;height: 30px">
+                      Created</a>
+                    
+                  </div>
+                </li>
+                
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <img src="../../../assets/default.png" style="width: 25px;height: 25px">
+
+                Default</button>
+            </form>
+
+          </div>
+        </nav>
+      </h5>
+      <div class="card-body">
+        <table class="table table-hover table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-white bg-dark text-right">
+    V1.0
+  </div>
+</div>

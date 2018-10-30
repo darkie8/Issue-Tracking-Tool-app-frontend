@@ -12,6 +12,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './user-entry/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PersonalizedDashboardViewComponent } from './dashboard/personalized-dashboard-view/personalized-dashboard-view.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DashboardModule,
     RouterModule.forRoot([{path: 'login' , component: LoginComponent, pathMatch: 'full'},
     { path: '', component: LoginComponent },
-    { path: '*', component: LoginComponent }], {useHash: true})
+    { path: '*', component: LoginComponent },
+    {path: 'dashboard/:userid' , component: PersonalizedDashboardViewComponent, pathMatch: 'full'}], {useHash: true})
   ],
   providers: [],
   bootstrap: [AppComponent]
