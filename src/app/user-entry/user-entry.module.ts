@@ -6,13 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'ng6-toastr';
 import { RouterModule } from '@angular/router';
-
+import {PasswordModule} from 'primeng/password';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
     FormsModule,
+    PasswordModule,
     ToastModule.forRoot(),
     RouterModule.forChild([{path: 'register', component: RegisterComponent}])
   ],

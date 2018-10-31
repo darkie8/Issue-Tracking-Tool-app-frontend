@@ -9,10 +9,8 @@ import { UserEntryModule } from './user-entry/user-entry.module';
 import { SpecialSelectorsModule } from './special-selectors/special-selectors.module';
 import { IssueDescriptionViewModule } from './issue-description-view/issue-description-view.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { RouterModule } from '@angular/router';
-import { LoginComponent } from './user-entry/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PersonalizedDashboardViewComponent } from './dashboard/personalized-dashboard-view/personalized-dashboard-view.component';
+
 
 @NgModule({
   declarations: [
@@ -29,10 +27,7 @@ import { PersonalizedDashboardViewComponent } from './dashboard/personalized-das
     SpecialSelectorsModule,
     IssueDescriptionViewModule,
     DashboardModule,
-    RouterModule.forRoot([{path: 'login' , component: LoginComponent, pathMatch: 'full'},
-    { path: '', component: LoginComponent },
-    { path: '*', component: LoginComponent },
-    {path: 'dashboard/:userid' , component: PersonalizedDashboardViewComponent, pathMatch: 'full'}], {useHash: true})
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

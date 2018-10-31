@@ -1,9 +1,11 @@
-<div class="card" style="overflow: hidden">
+
+<div class="card pt-0" style="overflow: hidden;background-color: #e9ecef;top: -3px">
+    <div class="w-100  position-fixed" style="background-color: #e3f2fd">
   <!--navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
     <a class="navbar-brand h1" href="#">
-      <img src="../../../assets/issusicon.png" style="width: 25px;height: 25px;background-color: azure" class="rounded-circle">
+      <img src="assets/issusicon.png" style="width: 25px;height: 25px;background-color: azure" class="rounded-circle">
       Issus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,33 +19,33 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <img src="../../../assets/user.svg" style="width: 30px;height: 30px">
+            <img src="assets/user.svg" style="width: 20px;height: 20px">
             Contact
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">
-              <img src="../../../assets/facebok.png" style="width: 30px;height: 30px">
+              <img src="assets/facebok.png" style="width: 30px;height: 30px">
               facebook</a>
             <a class="dropdown-item" href="#">
-              <img src="../../../assets/link.png" style="width: 30px;height: 30px">
+              <img src="assets/link.png" style="width: 30px;height: 30px">
               linkedin</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">
-              <img src="../../../assets/twitter.svg" style="width: 30px;height: 30px">
+              <img src="assets/twitter.svg" style="width: 30px;height: 30px">
               twitter</a>
             <a class="dropdown-item" href="#">
-              <img src="../../../assets/github.png" style="width: 30px;height: 30px">
+              <img src="assets/github.png" style="width: 30px;height: 30px">
               github</a>
             <a class="dropdown-item" href="#">
-              <img src="../../../assets/gmail.svg" style="width: 30px;height: 30px">
+              <img src="assets/gmail.svg" style="width: 30px;height: 30px">
               gmail</a>
           </div>
         </li>
       </ul>
 
       <form class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          <img src="../../../assets/logout.png" style="width: 30px;height: 30px">
+        <button class="btn btn-outline-light my-3 my-sm-0">
+          <img src="assets/logout.png" style="width: 20px;height: 20px">
 
           Logout</button>
       </form>
@@ -51,90 +53,99 @@
     </div>
   </nav>
   <!--secondary info bar-->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            <img src="../../../assets/dashboard_1195952.png" style="width: 30px;height: 30px">
-            Dashboard <span class="sr-only">(current)</span></a>
-        </li>
-
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
+  
+    <nav class="navbar navbar-expand-lg navbar-light mx-2" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">
+            <img src="assets/dashboard_1195952.png" style="width: 30px;height: 30px">
+            Dashboard </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+        aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            
+          </li>
+  
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </div>
 
   <!--user info-->
 
-  <div class="jumbotron">
+  <div class="jumbotron" style="margin-top:70px">
     <h1 class="display-4">Hello, User!</h1>
     <p class="lead">Assigned Issues: <span></span>
       <br>Created Issues: <span></span></p>
     <hr class="my-4">
     <p>Create new Issue by clicking the button </p>
-    <a class="btn btn-outline-dark" href="#" role="button">
-      <img src="../../../assets/plus.jpg" style="width: 30px;height: 30px" class="rounded-circle">
+    <!--creating issue-->
+    <a class="btn btn-outline-dark" role="button" (click)="visibleSidebar5 = true" >
+      <img src="assets/plus.jpg" style="width: 30px;height: 30px" class="rounded-circle">
       Create</a>
     <br>
     <!--table about issues-->
     <div class="card mt-3">
-      <h5 class="card-header">
+     
+      <h5 class="card-header font-weight-normal">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent1">
             <ul class="navbar-nav mr-auto">
               <!--column sorting-->
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <img src="../../../assets/sorting.svg" style="width: 20px;height: 20px">
+                  
+                <a pButton  class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" label="Show" (click)="menu.toggle($event)" >
+                  <img src="assets/sorting.svg" style="width: 20px;height: 20px">
                   Coloumn sorting
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                
+<!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#">
-                    <img src="../../../assets/statussorting.png" style="width: 30px;height: 30px">
-                    Status</a>
+                    <img src="assets/statussorting.png" style="width: 30px;height: 30px">
+                    Status
+                  </a>
                   <a class="dropdown-item" href="#">
-                    <img src="../../../assets/titlesorting.png" style="width: 30px;height: 30px">
+                    <img src="assets/titlesorting.png" style="width: 30px;height: 30px">
                     Title</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">
-                    <img src="../../../assets/datesorting.svg" style="width: 30px;height: 30px">
+                    <img src="assets/datesorting.svg" style="width: 30px;height: 30px">
                     Date</a>
                   <a class="dropdown-item" href="#">
-                    <img src="../../../assets/user.svg" style="width: 30px;height: 30px">
+                    <img src="assets/user.svg" style="width: 30px;height: 30px">
                     Reporter</a>
-                </div>
+                </div>-->
+                
               </li>
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="../../../assets/sorting.svg" style="width: 20px;height: 20px">
-                    Coloumn sorting
+                    <img src="assets/sorting.svg" style="width: 20px;height: 20px">
+                    My issues
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">
-                      <img src="../../../assets/assigned.png" style="width: 30px;height: 30px">
+                      <img src="assets/assigned.png" style="width: 30px;height: 30px">
                       Assigned</a>
                     <a class="dropdown-item" href="#">
-                      <img src="../../../assets/edit.png" style="width: 30px;height: 30px">
+                      <img src="assets/edit.png" style="width: 30px;height: 30px">
                       Created</a>
                     
                   </div>
@@ -143,8 +154,8 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                <img src="../../../assets/default.png" style="width: 25px;height: 25px">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                <img src="assets/default.png" style="width: 25px;height: 25px">
 
                 Default</button>
             </form>
@@ -152,14 +163,15 @@
           </div>
         </nav>
       </h5>
-      <div class="card-body">
+      <div class="card-body table-responsive">
         <table class="table table-hover table-dark">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Status</th>
+              <th scope="col">Title</th>
+              <th scope="col">Date</th>
+              <th scope="col">Reporter</th>
             </tr>
           </thead>
           <tbody>
@@ -168,18 +180,29 @@
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
+              <td>@fat</td>
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Jacob</td>
               <td>Thornton</td>
               <td>@fat</td>
+              <td>@fat</td>
             </tr>
             <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
+                <th scope="row">3</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                  <th scope="row">4</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                  <td>@fat</td>
+                </tr>
           </tbody>
         </table>
       </div>
@@ -190,3 +213,9 @@
     V1.0
   </div>
 </div>
+<p-slideMenu #menu  [model]="col_sort" [menuWidth]="170" [popup]="true" [viewportHeight]="250"></p-slideMenu>
+<p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
+    <h1 style="font-weight:normal">Full Screen Sidebar</h1>
+    <button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"></button>
+    <button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"></button>
+</p-sidebar>
