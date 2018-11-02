@@ -1,0 +1,10 @@
+@media only screen and (max-width: 510px) {
+    .jumboboy {
+      margin-top: 100px !important;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .jumboboy {
+      margin-top: 100px !important;
+    }
+}

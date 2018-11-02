@@ -6,8 +6,8 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./personalized-dashboard-view.component.css']
 })
 export class PersonalizedDashboardViewComponent implements OnInit {
-  private col_sort: MenuItem[];
-  private my_issues: MenuItem[];
+  public col_sort: MenuItem[];
+  public my_issues: MenuItem[];
   visibleSidebar5;
   constructor() { }
 

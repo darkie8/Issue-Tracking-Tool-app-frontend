@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponentComponent } from './../../special-selectors/navbar-component/navbar-component.component';
 import { MessageService } from 'primeng/components/common/messageservice';
-declare var $: any;
-
 
 @Component({
-  selector: 'app-issue-description-view',
-  templateUrl: './issue-description-view.component.html',
-  styleUrls: ['./issue-description-view.component.css'],
-  providers: [MessageService]
+  // tslint:disable-next-line:component-selector
+  selector: 'create-issue',
+  templateUrl: './create-issue.component.html',
+  styleUrls: ['./create-issue.component.css']
 })
-export class IssueDescriptionViewComponent implements OnInit {
+export class CreateIssueComponent implements OnInit {
   description: any;
   title: string;
   tag: string;
@@ -38,5 +35,4 @@ export class IssueDescriptionViewComponent implements OnInit {
 
     console.log(this.title + '' + this.description);
   }
-
 }

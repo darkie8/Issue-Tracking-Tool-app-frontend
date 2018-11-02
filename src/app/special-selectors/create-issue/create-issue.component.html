@@ -1,0 +1,51 @@
+<div class="jumbotron jumboboy mb-0 pb-0  mx-0 px-0" style="margin-top: 70px">
+  <div class="jumbotron  mb-0 pb-0">
+    <h1 class="display-4">Create Issue!</h1>
+    <p class="lead">Create issue by filling up the form below. You may attach respective screenshots or files.</p>
+    <hr class="my-4">
+    <!--username-->
+    <h3 class="first">Title</h3>
+  <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+          <div class="ui-inputgroup w-75">
+              <span class="ui-inputgroup-addon"><i class="pi pi-paperclip"></i></span>
+              <input [(ngModel)]="title" class="px-3 w-100" type="text" pInputText placeholder="Title">         
+          </div>
+      </div>
+  </div>
+  
+  <!--tags-->
+  <h3 class="first">Tags</h3>
+  <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+          <div class="ui-inputgroup w-75">
+              <span class="ui-inputgroup-addon"><i class="pi pi-tag"></i></span>
+              <input [(ngModel)]="tag" class="px-3 w-100" type="text" pInputText placeholder="Tags">         
+          </div>
+      </div>
+  </div>
+  <!--description-->
+  <h3 class="first">Description</h3>
+  <p-editor [(ngModel)]="description" [style]="{'height':'320px'}"></p-editor>
+  
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
+  
+  <h3 class="first">Upload files</h3>
+  <p-fileUpload name="demo[]"  [showCancelButton]='false' chooseLabel	="Attach files" url="http://localhost:3000/api/v1/users/upload" (onUpload)="onUpload($event)"
+          multiple="multiple" accept="image/*" maxFileSize="1000000">
+      <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+      </ng-template>
+  </p-fileUpload>
+  
+  <button class="my-3" pButton type="button" label="Submit" icon="pi pi-sign-in" (click)="submit()"></button>
+    
+  </div>
+
+  <!--footer-->
+  <div class="card-footer text-white bg-dark text-right">
+    V1.0
+  </div>
+</div>
