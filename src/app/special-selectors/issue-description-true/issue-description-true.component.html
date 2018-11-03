@@ -1,0 +1,47 @@
+<div class="jumbotron jumboboy mb-0 pb-0  mx-0 px-0" style="margin-top: 70px">
+  <div class="jumbotron  mb-0 pb-0">
+    <h1 class="display-4">Create Issue!</h1>
+    <p class="lead">Create issue by filling up the form below. You may attach respective screenshots or files.</p>
+    <hr class="my-4">
+
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <h3 class="first">Advanced</h3>
+    <div style="overflow: scroll;">
+      <p>Organization with advanced customization.</p>
+      <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
+          styleClass="company">
+          <ng-template let-node pTemplate="person">
+              <div class="node-header ui-corner-top">{{node.label}}</div>
+              <div class="node-content">
+                  <img src="assets/showcase/images/demo/organization/{node.data.avatar}" width="32">
+                  <div>{{node.data.name}}</div>
+              </div>
+          </ng-template>
+          <ng-template let-node pTemplate="department">
+              {{node.label}}
+          </ng-template>
+      </p-organizationChart>
+    </div>
+
+
+
+    </div>
+    <!--footer-->
+<div class="card-footer text-white bg-dark text-right">
+  V1.0
+</div>
+    </div>
+    <p-sidebar [(visible)]="visibleSidebarfull" [fullScreen]="true" [baseZIndex]="10000">
+     
+     
+     {{publishchFlow}}
+      <h1 style="font-weight:normal">Full Screen Sidebar</h1>
+      <button pButton type="button" 
+      (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
+      type: 'person',
+      styleClass: 'ui-person',
+      expanded: true,
+      data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' }}" label="Save" class="ui-button-success"></button>
+      <button pButton type="button" (click)="visibleSidebarfull = false" label="Cancel" class="ui-button-secondary"></button>
+  </p-sidebar>

@@ -7,6 +7,9 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+import { IssueDescriptionTrueComponent } from './issue-description-true/issue-description-true.component';
+import {OrganizationChartModule} from 'primeng/organizationchart';
+import {SidebarModule} from 'primeng/sidebar';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,11 +18,13 @@ import { ToastModule } from 'primeng/toast';
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
-    ToastModule
+    ToastModule,
+    OrganizationChartModule,
+    SidebarModule
   ],
-  declarations: [NavbarComponentComponent, CreateIssueComponent],
+  declarations: [NavbarComponentComponent, CreateIssueComponent, IssueDescriptionTrueComponent],
   exports: [
-    NavbarComponentComponent, CreateIssueComponent
+    NavbarComponentComponent, CreateIssueComponent, IssueDescriptionTrueComponent
   ]
 })
 export class SpecialSelectorsModule { }

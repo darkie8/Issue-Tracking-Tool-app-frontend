@@ -33,6 +33,6 @@ export class CreateIssueComponent implements OnInit {
    */
   public submit() {
 
-    console.log(this.title + '' + this.description);
+    sessionStorage.setItem('key', this.title + '' + this.description);
   }
 }

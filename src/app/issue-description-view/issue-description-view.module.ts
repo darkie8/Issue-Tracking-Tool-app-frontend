@@ -8,6 +8,8 @@ import {ButtonModule} from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ToastModule} from 'primeng/toast';
+import {OrganizationChartModule} from 'primeng/organizationchart';
+import { IssueDescriptionTrueComponent } from '../special-selectors/issue-description-true/issue-description-true.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import {ToastModule} from 'primeng/toast';
         FormsModule,
          ReactiveFormsModule,
          FileUploadModule,
-         ToastModule
+         ToastModule,
+         OrganizationChartModule
   ],
   declarations: [IssueDescriptionViewComponent], schemas: [NO_ERRORS_SCHEMA]
 })

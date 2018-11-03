@@ -1,6 +1,10 @@
-<div class="card pt-0" style="overflow: hidden;background-color: #e9ecef;top: -3px">
+<div class="card pt-0" style="background-color: #e9ecef;top: -3px">
  <!--navbar-->
  <navbar-component style="z-index: 3" [input1e]="'Issue Description'"></navbar-component>
  <!--create issue-->
-<create-issue></create-issue>
+<create-issue *ngIf="typeroute === 'create'"></create-issue>
+
+<!--issue description-->
+<issue-description-true *ngIf="typeroute === 'view'"></issue-description-true>
+</div>
  

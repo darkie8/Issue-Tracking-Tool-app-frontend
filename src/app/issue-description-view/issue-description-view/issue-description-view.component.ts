@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponentComponent } from './../../special-selectors/navbar-component/navbar-component.component';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TreeNode } from 'primeng/api';
 declare var $: any;
 
 
@@ -11,32 +13,23 @@ declare var $: any;
   providers: [MessageService]
 })
 export class IssueDescriptionViewComponent implements OnInit {
-  description: any;
-  title: string;
-  tag: string;
-  uploadedFiles: any[] = [];
 
-  constructor(private messageService: MessageService) { }
+  typeroute: string;
 
-  onUpload(event) {
-    // tslint:disable-next-line:prefer-const
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
 
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-  }
+
+  constructor(private routeend: ActivatedRoute) { }
+
 
 
   ngOnInit() {
+
+    this.typeroute = this.routeend.snapshot.paramMap.get('type');
+
+
   }
 
-  /**
-   * submit
-   */
-  public submit() {
 
-    console.log(this.title + '' + this.description);
-  }
+
 
 }

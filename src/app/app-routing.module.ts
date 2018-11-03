@@ -8,8 +8,8 @@ const routes: Routes = [{ path: 'login', component: LoginComponent, pathMatch: '
 { path: '', component: LoginComponent },
 { path: '*', component: LoginComponent },
 { path: 'dashboard/:userid', component: PersonalizedDashboardViewComponent, pathMatch: 'full' },
-{ path: 'issue_description/:issueid', component: IssueDescriptionViewComponent, pathMatch: 'full' },
-{path: 'issue_description/create', component: IssueDescriptionViewComponent}];
+{ path: 'issue_description/:type/:issueid', component: IssueDescriptionViewComponent, pathMatch: 'full' },
+{path: 'issue_description/:type', component: IssueDescriptionViewComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
