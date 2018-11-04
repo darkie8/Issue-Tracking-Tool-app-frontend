@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Router } from '../../../../node_modules/@angular/router';
+
 import { ToastsManager } from '../../../../node_modules/ng6-toastr';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  repass: any;
 
   constructor(
     private service: IssueTrackingServiceService,
@@ -47,13 +49,15 @@ export class RegisterComponent implements OnInit {
 
     } else if (!this.password) {
       this.toastr.warning('Password missing');
+    } else if (this.password !== this.repass) {
+      this.toastr.warning(`Password's not matching`);
     } else {
       const data = {
         firstName: this.firstName,
         lastName: this.lastName,
         mobile: this.mobile,
         email: this.email,
-        password: this.password
+        password: this.repass
       };
 
       console.log(data);
@@ -62,8 +66,8 @@ export class RegisterComponent implements OnInit {
         success => {
           console.log(success);
           if (success.status === 200) {
+            this.toastr.success(`A verification message has been sent to ${data.email}`);
             setTimeout(() => {
-              this.toastr.success(`A verification message has been sent to ${data.email}`);
               this.goToLogin();
             }, 2000);
           } else {

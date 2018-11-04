@@ -12,23 +12,53 @@ import { Cookie } from '../../node_modules/ng2-cookies/ng2-cookies';
   providedIn: 'root'
 })
 export class IssueTrackingServiceService {
-  private url = '';
+  private url = 'http://localhost:3000';
 
   constructor(private httpCall: HttpClient) { }
 
+  /**
+   * setdatatoLocalStorage = 
+  */
+  public setdatatoLocalStorage = (data) => {
+    localStorage.setItem('user_details', JSON.stringify(data));
+  }
+
   // registering
   public registeringMethod(data): Observable<any> {
-    const Body = {firstName: data.firstName,
+    const Body = {
+      firstName: data.firstName,
       lastName: data.lastName,
       mobile: data.mobile,
       email: data.email,
-      password: data.password};
-      return this.httpCall.post(`${this.url}/api/v1/users/register`, Body);
+      password: data.password
+    };
+    return this.httpCall.post(`${this.url}/api/v1/users/signup`, Body);
+  }
+  /**
+   * verificationemail 
+   * */
+  public verificationemail(data) {
+    return this.httpCall.put(`${this.url}/api/v1/users/${data}/verify`, {});
   }
 
+  /**
+   * loginMethod
+   */
+  public loginmethod(data): Observable<any> {
+    const params1 = new HttpParams()
+      .set('email', data.email)
+      .set('password', data.password);
+    return this.httpCall.post(`${this.url}/api/v1/users/login`, params1);
+  }
 
+  public logout(): Observable<any> {
 
+    const params = new HttpParams()
+      .set('authToken', Cookie.get('authtoken'));
 
+    return this.httpCall.post(`${this.url}/api/v1/users/logout`, params);
+
+  } // end logout function
 
   // handling error
   private handleError(err: HttpErrorResponse) {

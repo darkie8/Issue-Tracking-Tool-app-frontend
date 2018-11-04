@@ -40,49 +40,49 @@
                <div class="input-group-prepend">
                  <span class="input-group-text" id="basic-addon1"><img src="assets/user.svg" style="height:20px;width: 20px;"></span>
                </div>
-               <input type="text" class="form-control" placeholder="First name" aria-label="firstname" aria-describedby="basic-addon1">
+               <input type="text" [(ngModel)]="firstName" class="form-control" placeholder="First name" aria-label="firstname" aria-describedby="basic-addon1">
              </div>
 
              <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1"><img src="assets/user.svg" style="height:20px;width: 20px;"></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="lastname" aria-describedby="basic-addon1">
+                <input type="text" [(ngModel)]="lastName" class="form-control" placeholder="Last name" aria-label="lastname" aria-describedby="basic-addon1">
               </div>
 
               <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><img src="assets/emailicon.png" style="height:20px;width: 20px;"></span>
                   </div>
-                  <input type="email" class="form-control" placeholder="Email@example.com" aria-label="email" aria-describedby="basic-addon1">
+                  <input type="email" [(ngModel)]="email" class="form-control" placeholder="Email@example.com" aria-label="email" aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"><img src="assets/phoneicon.svg" style="height:20px;width: 20px;"></span>
                     </div>
-                    <input type="number" class="form-control" placeholder="Mobile no." aria-label="mobilenumber" aria-describedby="basic-addon1">
+                    <input type="number" [(ngModel)]="mobile" class="form-control" placeholder="Mobile no." aria-label="mobilenumber" aria-describedby="basic-addon1">
                   </div>
 
              <div class="input-group mb-3">
                  <div class="input-group-prepend">
                    <span class="input-group-text" id="basic-addon1"><img src="assets/password.png" style="height:20px;width: 20px;"></span>
                  </div>
-                 <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                 <input ype="text" class="form-control p-3" [(ngModel)]="password" placeholder="Password" type="password"  pPassword />
                </div>
 
                <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><img src="assets/confirmpassicon.png" style="height:20px;width: 20px;"></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Confirm password" aria-label="confirmpassword" aria-describedby="basic-addon1">
+                  <input type="password" [(ngModel)]="repass" class="form-control" placeholder="Confirm password" aria-label="confirmpassword" aria-describedby="basic-addon1">
                 </div>
 
-           <a href="#" class="btn btn-primary" style="font-size: 20px">sign up</a>
+           <a class="btn btn-primary" (click)="signUp()" style="font-size: 20px">sign up</a>
          </div>
          <div class="card-footer bg-white">
             <p class="pb-0" style="font-size: 20px">or</p>
-             <button type="button" class="btn btn-light btn-lg btn-block">
+             <button type="button" (click)="goToLogin()" class="btn btn-light btn-lg btn-block">
                  <img src="assets/signup.png" style="height: 40px;width: 40px" class="my-1">
                  <small class="my-1 ml-1">You can login over here</small></button>
            </div>
