@@ -17,12 +17,18 @@ export class IssueTrackingServiceService {
   constructor(private httpCall: HttpClient) { }
 
   /**
-   * setdatatoLocalStorage = 
+   * setdatatoLocalStorage
   */
   public setdatatoLocalStorage = (data) => {
     localStorage.setItem('user_details', JSON.stringify(data));
   }
 
+   /**
+   * setdatatoSessionalStorage
+  */
+ public setdatatoSessionalStorage = (data) => {
+  sessionStorage.setItem('user_details', JSON.stringify(data));
+}
   // registering
   public registeringMethod(data): Observable<any> {
     const Body = {
@@ -35,7 +41,7 @@ export class IssueTrackingServiceService {
     return this.httpCall.post(`${this.url}/api/v1/users/signup`, Body);
   }
   /**
-   * verificationemail 
+   * verificationemail
    * */
   public verificationemail(data) {
     return this.httpCall.put(`${this.url}/api/v1/users/${data}/verify`, {});

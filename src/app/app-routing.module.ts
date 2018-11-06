@@ -8,7 +8,7 @@ const routes: Routes = [{ path: 'login', component: LoginComponent, pathMatch: '
 { path: '', redirectTo: '/login',  pathMatch: 'full' },
 { path: '*', component: LoginComponent },
 { path: 'verify/:userId', component: LoginComponent, pathMatch: 'full' },
-{ path: 'dashboard/:userid', component: PersonalizedDashboardViewComponent, pathMatch: 'full' },
+{ path: 'dashboard/:username', component: PersonalizedDashboardViewComponent, pathMatch: 'full' },
 { path: 'issue_description/:type/:issueid', component: IssueDescriptionViewComponent, pathMatch: 'full' },
 { path: 'issue_description/:type', component: IssueDescriptionViewComponent }];
 

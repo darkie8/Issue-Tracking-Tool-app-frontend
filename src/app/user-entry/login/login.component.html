@@ -18,7 +18,7 @@
           </div>
             <!--description of the app-->
         <div class="card bg-dark text-dark col-11 m-0 p-0 border-0">
-          <img class="card-img pb-1" src="assets/rocket-taking-off.gif" style="background-color:rgb(253, 255, 255);height: 99vh" alt="Card image">
+          <img class="card-img pb-1" src="assets/rocket-taking-off.gif" style="background-color:rgb(253, 255, 255);height: 90vh" alt="Card image">
           <div class="card-img-overlay">
             <h1 class="card-title" style="font-family: Josephin Slab, serif;">ISSUS</h1>
             <h4 class="card-text" style="font-family:Josephin Slab, serif;">An issue tracking initiative.</h4>
@@ -29,8 +29,8 @@
     <div class="col-4 pl-0 ml-0 pr-4">
     <!--Login-->
   
-    <div class="card text-center mt-3" >
-        <div class="card-header" style="font-size: 40px">
+    <div class="card text-center mt-2" >
+        <div class="card-header" style="font-size: 30px">
           Login
         </div>
         <div class="card-body">
@@ -40,19 +40,19 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><img src="assets/user.svg" style="height:20px;width: 20px;"></span>
               </div>
-              <input type="text" class="form-control" placeholder="Username or email" aria-label="Username" aria-describedby="basic-addon1">
+              <input [(ngModel)]="email" type="text" class="form-control" placeholder="Username or email" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1"><img src="assets/password.png" style="height:20px;width: 20px;"></span>
                 </div>
-                <input ype="text" class="form-control p-3" placeholder="Password" type="password" pPassword />
+                <input [(ngModel)]="password" class="form-control p-3" placeholder="Password" type="password">
             
               </div>
-          <a href="#" class="btn btn-primary" style="font-size: 20px">login</a>
+          <a href="#" class="btn btn-primary" style="font-size: 15px">login</a>
         </div>
         <p class="card-text">or<br>login with</p>
-       <div class="p-2">
+       <div class="p-1">
           <!--social login-->
           <button type="button" class="btn btn-primary btn-lg btn-block">
             <img src="assets/facebook_color.png" style="height: 30px;width: 30px" class="my-1">
@@ -64,14 +64,15 @@
        </div> <div class="card-footer bg-white">
          <p class="pb-0" style="font-size: 20px">or</p>
           <button type="button" class="btn btn-light btn-lg btn-block">
-              <img src="assets/signup.png" style="height: 40px;width: 40px" class="my-1">
-              <small class="my-1 ml-1">You can sign up over here</small></button>
+              <img src="assets/signup.png" style="height: 30px;width: 30px" class="my-1">
+              <small style="font-size: 15px" class="my-1 ml-1">You can sign up over here</small></button>
         </div>
       </div>
     </div>
    </div> 
-   <div class="card-footer text-white bg-dark text-right">
+   <div class="card-footer text-white bg-dark text-right" style="font-size: 10px">
       V1.0
     </div>
 </div>
+<p-toast position="top-left"></p-toast>
 
