@@ -4,10 +4,10 @@ import { PersonalizedDashboardViewComponent } from './dashboard/personalized-das
 import { LoginComponent } from './user-entry/login/login.component';
 import { IssueDescriptionViewComponent } from './issue-description-view/issue-description-view/issue-description-view.component';
 
-const routes: Routes = [{ path: 'login', component: LoginComponent, pathMatch: 'full' },
+const routes: Routes = [{ path: 'login', component: LoginComponent },
 { path: '', redirectTo: '/login',  pathMatch: 'full' },
-{ path: '*', component: LoginComponent },
-{ path: 'verify/:userId', component: LoginComponent, pathMatch: 'full' },
+{ path: '*', redirectTo: '/login',  pathMatch: 'full' },
+{ path: 'verify/:userId', component: LoginComponent, pathMatch: 'prefix' },
 { path: 'dashboard/:username', component: PersonalizedDashboardViewComponent, pathMatch: 'full' },
 { path: 'issue_description/:type/:issueid', component: IssueDescriptionViewComponent, pathMatch: 'full' },
 { path: 'issue_description/:type', component: IssueDescriptionViewComponent }];

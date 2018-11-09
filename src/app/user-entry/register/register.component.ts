@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-
-import { ToastsManager } from '../../../../node_modules/ng6-toastr';
+import { MessageService } from 'primeng/api';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [MessageService]
 })
 export class RegisterComponent implements OnInit {
   repass: any;
@@ -14,10 +14,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private service: IssueTrackingServiceService,
     private router: Router,
-    private toastr: ToastsManager,
-    private vcr: ViewContainerRef) {
-    toastr.setRootViewContainerRef(vcr);
-  }
+    private vcr: ViewContainerRef,
+    private messageService: MessageService) { }
   public firstName: any;
   public lastName: any;
   public mobile: any;
@@ -35,22 +33,52 @@ export class RegisterComponent implements OnInit {
 
   signUp: any = () => {
     if (!this.firstName) {
-      this.toastr.warning('Firstname missing');
+      this.messageService.add({
+        key: 'fn',
+        severity: 'warn',
+        summary: 'firstname missing',
+        detail: 'input firstname'
+      });
 
 
     } else if (!this.lastName) {
-      this.toastr.warning('Lastname missing');
+      this.messageService.add({
+        key: 'ln',
+        severity: 'warn',
+        summary: 'lastname missing',
+        detail: 'input lastname'
+      });
 
     } else if (!this.mobile) {
-      this.toastr.warning('Mobile number missing');
+      this.messageService.add({
+        key: 'mob',
+        severity: 'warn',
+        summary: 'mobile number missing',
+        detail: 'input mobile number'
+      });
 
     } else if (!this.email) {
-      this.toastr.warning('Email missing');
+      this.messageService.add({
+        key: 'em',
+        severity: 'warn',
+        summary: 'email missing',
+        detail: 'input email'
+      });
 
     } else if (!this.password) {
-      this.toastr.warning('Password missing');
+      this.messageService.add({
+        key: 'pass',
+        severity: 'warn',
+        summary: 'password missing',
+        detail: 'input password'
+      });
     } else if (this.password !== this.repass) {
-      this.toastr.warning(`Password's not matching`);
+      this.messageService.add({
+        key: 'rep',
+        severity: 'warn',
+        summary: 'repass missing',
+        detail: 'input password again'
+      });
     } else {
       const data = {
         firstName: this.firstName,
@@ -63,20 +91,39 @@ export class RegisterComponent implements OnInit {
       console.log(data);
       this.service.registeringMethod(data).subscribe(
         // if user data is fetched
-        success => {
-          console.log(success);
-          if (success.status === 200) {
-            this.toastr.success(`A verification message has been sent to ${data.email}`);
+        info => {
+
+
+          if (info.status === 200) {
+            this.messageService.add({
+              key: 'ems',
+              severity: 'info',
+              summary: 'an email has been sent',
+              detail: `A verification message has been sent to ${data.email}`
+            });
+
             setTimeout(() => {
               this.goToLogin();
             }, 2000);
           } else {
-            this.toastr.error(success.message);
+            this.messageService.add({
+              key: 'errregno',
+              severity: 'error',
+              summary: 'error in server',
+              detail: info.message
+            });
+
           }
         },
         // if user data can not be fetched
         error => {
-          this.toastr.warning('can not be registered');
+          this.messageService.add({
+            key: 'regno',
+            severity: 'warn',
+            summary: 'can not be registered',
+            detail: 'can not be registered ;internal problem'
+          });
+
         }
       );
     }

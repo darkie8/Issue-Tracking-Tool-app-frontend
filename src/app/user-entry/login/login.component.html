@@ -49,7 +49,7 @@
                 <input [(ngModel)]="password" class="form-control p-3" placeholder="Password" type="password">
             
               </div>
-          <a href="#" class="btn btn-primary" style="font-size: 15px">login</a>
+          <a href="#" class="btn btn-primary" style="font-size: 15px" (click)="login()">login</a>
         </div>
         <p class="card-text">or<br>login with</p>
        <div class="p-1">
@@ -65,7 +65,7 @@
          <p class="pb-0" style="font-size: 20px">or</p>
           <button type="button" class="btn btn-light btn-lg btn-block">
               <img src="assets/signup.png" style="height: 30px;width: 30px" class="my-1">
-              <small style="font-size: 15px" class="my-1 ml-1">You can sign up over here</small></button>
+              <small style="font-size: 15px" class="my-1 ml-1" (click)="goToSignUp()">You can sign up over here</small></button>
         </div>
       </div>
     </div>
@@ -74,5 +74,11 @@
       V1.0
     </div>
 </div>
-<p-toast position="top-left"></p-toast>
+<p-toast key="em" position="top-left"></p-toast>
+<p-toast key="pass" position="top-left"></p-toast>
+<p-toast key="emver" position="top-left"></p-toast>
+<p-toast key="emer" position="top-left"></p-toast>
+<p-toast key="log" position="top-left"></p-toast>
+<p-toast key="logf" position="top-left"></p-toast>
+<p-toast key="logfserver" position="top-left"></p-toast>
 

@@ -51,18 +51,12 @@ export class IssueTrackingServiceService {
    * loginMethod
    */
   public loginmethod(data): Observable<any> {
-    const params1 = new HttpParams()
-      .set('email', data.email)
-      .set('password', data.password);
-    return this.httpCall.post(`${this.url}/api/v1/users/login`, params1);
+    return this.httpCall.post(`${this.url}/api/v1/users/login`, data);
   }
 
   public logout(): Observable<any> {
 
-    const params = new HttpParams()
-      .set('authToken', Cookie.get('authtoken'));
-
-    return this.httpCall.post(`${this.url}/api/v1/users/logout`, params);
+    return this.httpCall.post(`${this.url}/api/v1/users/logout`, {'authToken': Cookie.get('authtoken')});
 
   } // end logout function
 
