@@ -12,7 +12,7 @@ import { Cookie } from '../../node_modules/ng2-cookies/ng2-cookies';
   providedIn: 'root'
 })
 export class IssueTrackingServiceService {
-  private url = 'http://localhost:3000';
+  private url = 'https://localhost:3000';
 
   constructor(private httpCall: HttpClient) { }
 
@@ -23,12 +23,15 @@ export class IssueTrackingServiceService {
     localStorage.setItem('user_details', JSON.stringify(data));
   }
 
-   /**
-   * setdatatoSessionalStorage
-  */
- public setdatatoSessionalStorage = (data) => {
-  sessionStorage.setItem('user_details', JSON.stringify(data));
-}
+  public getdataLocalStorage = (data: string): any => {
+   return localStorage.getItem(data);
+  }
+  /**
+  * setdatatoSessionalStorage
+ */
+  public setdatatoSessionalStorage = (data) => {
+    sessionStorage.setItem('user_details', JSON.stringify(data));
+  }
   // registering
   public registeringMethod(data): Observable<any> {
     const Body = {
@@ -56,7 +59,7 @@ export class IssueTrackingServiceService {
 
   public logout(): Observable<any> {
 
-    return this.httpCall.post(`${this.url}/api/v1/users/logout`, {'authToken': Cookie.get('authtoken')});
+    return this.httpCall.post(`${this.url}/api/v1/users/logout`, { 'authToken': Cookie.get('authtoken') });
 
   } // end logout function
 

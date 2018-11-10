@@ -92,11 +92,16 @@ export class LoginComponent implements OnInit {
               summary: 'Login done',
               detail: 'Login has been done and app is accessing your info from the server'
             });
-            // saving authtoken, userid and name as cookies
-            Cookie.set('authToken', data.data.authToken);
-            Cookie.set('receiverId', data.data.userDetails.userId);
-            Cookie.set('receiverName', data.data.userDetails.firstName + ' ' + data.data.userDetails.lastName);
 
+            const date = new Date();
+            const days = -1;
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+
+            // saving authtoken, userid and name as cookies
+            Cookie.set('authToken', data.data.authToken, date['toGMTString']());
+            Cookie.set('receiverId', data.data.userDetails.userId, date['toGMTString']());
+            Cookie.set('receiverName', data.data.userDetails.firstName + ' ' + data.data.userDetails.lastName, date['toGMTString']());
+            Cookie.set('issues', data.data.authToken, date['toGMTString']());
             // saving user details in localstorage
             this.httpservice.setdatatoLocalStorage(data.data.userDetails);
 
@@ -122,7 +127,7 @@ export class LoginComponent implements OnInit {
             });
         },
         err => {
-          console.log('check')
+          console.log('check');
           this.messageService.add({
             key: 'logfserver',
             severity: 'error',
