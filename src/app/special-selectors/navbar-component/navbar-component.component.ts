@@ -38,7 +38,12 @@ export class NavbarComponentComponent implements OnInit {
           Cookie.deleteAll();
         },
         err => {
-
+          this.toast.add({
+            key: 'logouterr',
+            severity: 'error',
+            summary: 'Logging out incomplete',
+            detail: 'There are some problems'
+          });
         }
       );
       this.router.navigate(['/login']);

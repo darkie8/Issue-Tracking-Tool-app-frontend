@@ -101,7 +101,6 @@ export class LoginComponent implements OnInit {
             Cookie.set('authToken', data.data.authToken, date['toGMTString']());
             Cookie.set('receiverId', data.data.userDetails.userId, date['toGMTString']());
             Cookie.set('receiverName', data.data.userDetails.firstName + ' ' + data.data.userDetails.lastName, date['toGMTString']());
-            Cookie.set('issues', data.data.authToken, date['toGMTString']());
             // saving user details in localstorage
             this.httpservice.setdatatoLocalStorage(data.data.userDetails);
 

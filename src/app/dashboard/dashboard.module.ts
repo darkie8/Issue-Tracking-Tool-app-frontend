@@ -6,9 +6,10 @@ import { SidebarModule } from 'primeng/sidebar';
 import { SpecialSelectorsModule } from '../special-selectors/special-selectors.module';
 import { NavbarComponentComponent } from '../special-selectors/navbar-component/navbar-component.component';
 import {ButtonModule} from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   imports: [
-    CommonModule, SlideMenuModule, SidebarModule, SpecialSelectorsModule, ButtonModule
+    CommonModule, SlideMenuModule, SidebarModule, ToastModule, SpecialSelectorsModule, ButtonModule
   ],
   declarations: [PersonalizedDashboardViewComponent]
 })

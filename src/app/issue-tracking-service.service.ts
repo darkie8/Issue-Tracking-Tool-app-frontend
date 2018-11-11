@@ -63,6 +63,19 @@ export class IssueTrackingServiceService {
 
   } // end logout function
 
+  /**
+   * getIssuesAssignedByaCertainUser
+   */
+  public getIssuesAssignedByaCertainUser(auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedByaCertainUser/${auth}`);
+  }
+
+  /**
+   * getIssuesAssignedToaCertainUser
+   */
+  public getIssuesAssignedToaCertainUser(auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedToaCertainUser/${auth}`);
+  }
   // handling error
   private handleError(err: HttpErrorResponse) {
 
