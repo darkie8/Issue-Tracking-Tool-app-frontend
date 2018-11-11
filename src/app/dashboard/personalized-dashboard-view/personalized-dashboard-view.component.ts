@@ -23,11 +23,12 @@ export class PersonalizedDashboardViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Reporter
     this.service.getIssuesAssignedByaCertainUser(Cookie.get('authToken')).subscribe(
       data1 => {
         if (data1['status'] === 200) {
-           this.numberofissuesR = data1['data']._length;
-           } else {
+          this.numberofissuesR = data1['data']._length;
+        } else {
           this.toast.add({
             key: 'erriss2',
             severity: 'error',
@@ -47,20 +48,21 @@ export class PersonalizedDashboardViewComponent implements OnInit {
       }
     );
 
+    // Assigned
     this.service.getIssuesAssignedToaCertainUser(Cookie.get('authToken')).subscribe(
       data1 => {
         if (data1['status'] === 200) {
           this.numberofissuesA = data1['data']._length;
-          } else {
-         this.toast.add({
-           key: 'erriss2',
-           severity: 'error',
-           summary: 'Erro',
-           detail: 'No Issuess found'
-         });
+        } else {
+          this.toast.add({
+            key: 'erriss2',
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'No Issuess found'
+          });
 
-         this.numberofissuesA = 0;
-       }
+          this.numberofissuesA = 0;
+        }
       },
       err => {
         this.toast.add({
@@ -71,6 +73,9 @@ export class PersonalizedDashboardViewComponent implements OnInit {
         });
       }
     );
+// table
+
+
     this.col_sort =
       [
         {
@@ -109,6 +114,10 @@ export class PersonalizedDashboardViewComponent implements OnInit {
         }
       ];
   }
+
+
+
+
 }
 
 

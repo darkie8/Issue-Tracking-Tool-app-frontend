@@ -76,6 +76,22 @@ export class IssueTrackingServiceService {
   public getIssuesAssignedToaCertainUser(auth) {
     return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedToaCertainUser/${auth}`);
   }
+
+/**
+ * go to create Issues
+ */
+public goTocreateIssues() {
+
+}
+
+
+/**
+ * table of issue
+ */
+public table_of_issues() {
+  
+}
+
   // handling error
   private handleError(err: HttpErrorResponse) {
 
