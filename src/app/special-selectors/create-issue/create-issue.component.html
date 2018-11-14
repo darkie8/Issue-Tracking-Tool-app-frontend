@@ -31,7 +31,7 @@
   <p-toast [style]="{marginTop: '80px'}"></p-toast>
   
   <h3 class="first">Upload files</h3>
-  <p-fileUpload name="demo[]"  [showCancelButton]='false' chooseLabel	="Attach files" url="http://localhost:3000/api/v1/users/upload" (onUpload)="onUpload($event)"
+  <p-fileUpload name="demo[]"  [showCancelButton]='false' chooseLabel	="Attach files" url="https://localhost:3000/api/v1/issue/upload/{{authtoken}}" (onUpload)="onUpload($event)"
           multiple="multiple" accept="image/*" maxFileSize="1000000">
       <ng-template pTemplate="content">
           <ul *ngIf="uploadedFiles.length">

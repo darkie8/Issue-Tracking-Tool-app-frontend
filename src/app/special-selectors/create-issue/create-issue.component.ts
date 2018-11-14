@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/components/common/messageservice';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'create-issue',
@@ -12,7 +12,7 @@ export class CreateIssueComponent implements OnInit {
   title: string;
   tag: string;
   uploadedFiles: any[] = [];
-
+   authtoken = Cookie.get('authToken');
   constructor(private messageService: MessageService) { }
 
   onUpload(event) {

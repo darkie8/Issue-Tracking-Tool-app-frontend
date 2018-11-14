@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import { MessageService } from 'primeng/api';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-personalized-dashboard-view',
   templateUrl: './personalized-dashboard-view.component.html',
@@ -17,11 +18,15 @@ export class PersonalizedDashboardViewComponent implements OnInit {
   details: any;
   visibleSidebar5;
   constructor(private service: IssueTrackingServiceService,
-    private toast: MessageService) {
+    private toast: MessageService,
+    private router: Router) {
     this.details = new Object(service.getdataLocalStorage('user_details'));
     console.log(this.details);
   }
+   goTocreateAnIssue = () => {
+   this.router.navigate(['/issue_description/create']);
 
+  }
   ngOnInit() {
     // Reporter
     this.service.getIssuesAssignedByaCertainUser(Cookie.get('authToken')).subscribe(

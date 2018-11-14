@@ -139,9 +139,9 @@
 </div>
 <p-slideMenu #menu  [model]="col_sort" [menuWidth]="170" [popup]="true" [viewportHeight]="250"></p-slideMenu>
 <p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
-    <h1 style="font-weight:normal">Full Screen Sidebar</h1>
-    <button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"></button>
-    <button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"></button>
+    <h1 style="font-weight:normal">Do you want to create an Issue ?</h1>
+    <button pButton type="button" (click)="goTocreateAnIssue()" label="Create an Issue" class="ui-button-success"></button>
+    <button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary ml-2"></button>
 </p-sidebar>
 <p-toast key="erriss1" position="top-left"></p-toast>
 <p-toast key="erriss2" position="top-left"></p-toast>
