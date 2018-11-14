@@ -10,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { IssueDescriptionTrueComponent } from './issue-description-true/issue-description-true.component';
 import {OrganizationChartModule} from 'primeng/organizationchart';
 import {SidebarModule} from 'primeng/sidebar';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +21,8 @@ import {SidebarModule} from 'primeng/sidebar';
     FileUploadModule,
     ToastModule,
     OrganizationChartModule,
-    SidebarModule
+    SidebarModule,
+    ConfirmDialogModule
   ],
   declarations: [NavbarComponentComponent, CreateIssueComponent, IssueDescriptionTrueComponent],
   exports: [

@@ -24,7 +24,7 @@ export class IssueTrackingServiceService {
   }
 
   public getdataLocalStorage = (data: string): any => {
-   return localStorage.getItem(data);
+    return localStorage.getItem(data);
   }
   /**
   * setdatatoSessionalStorage
@@ -77,20 +77,26 @@ export class IssueTrackingServiceService {
     return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedToaCertainUser/${auth}`);
   }
 
-/**
- * go to create Issues
- */
-public goTocreateIssues() {
+  /**
+   * go to create Issues
+   */
+  public goTocreateIssues() {
 
-}
+  }
 
+  /**
+   * createIssue
+   */
+  public createIssue(data) {
+    return this.httpCall.post(`${this.url}/api/v1/issue/createIssue/${data.auth}`, data.details);
+  }
 
-/**
- * table of issue
- */
-public table_of_issues() {
-  
-}
+  /**
+   * table of issue
+   */
+  public table_of_issues() {
+
+  }
 
   // handling error
   private handleError(err: HttpErrorResponse) {
@@ -113,4 +119,13 @@ public table_of_issues() {
 
   }  // END handleError
 
+  /**
+   * convertTostring
+   */
+  public convertTostring(data) {
+    // tslint:disable-next-line:no-construct
+    const stringObj = new String(data);
+
+ return stringObj.toString();
+  }
 }
