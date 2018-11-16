@@ -1,6 +1,6 @@
 
 <div class="card pt-0" style="overflow: hidden;background-color: #e9ecef;top: -3px">
-  <navbar-component [input1e]="'Dashboard'"></navbar-component>
+  <navbar-component  [input1e]="'Dashboard'"></navbar-component>
 
   <!--user info-->
 
@@ -16,7 +16,7 @@
       Create</a>
     <br>
     <!--table about issues-->
-    <div class="card mt-3">
+    <div class="card mt-3" >
      
       <h5 class="card-header font-weight-normal">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -37,24 +37,6 @@
                   <img src="assets/sorting.svg" style="width: 20px;height: 20px">
                   Coloumn sorting
                 </a>
-                
-                
-<!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">
-                    <img src="assets/statussorting.png" style="width: 30px;height: 30px">
-                    Status
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <img src="assets/titlesorting.png" style="width: 30px;height: 30px">
-                    Title</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    <img src="assets/datesorting.svg" style="width: 30px;height: 30px">
-                    Date</a>
-                  <a class="dropdown-item" href="#">
-                    <img src="assets/user.svg" style="width: 30px;height: 30px">
-                    Reporter</a>
-                </div>-->
                 
               </li>
 
@@ -78,8 +60,8 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
-                <img src="assets/default.png" style="width: 25px;height: 25px">
+              <button (click)="default()" class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                <img  src="assets/default.png" style="width: 25px;height: 25px">
 
                 Default</button>
             </form>
@@ -99,37 +81,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>@fat</td>
+            <tr *ngFor="let item of status; let i=index">
+              <th scope="row" >{{i+1}}</th>
+              <td>{{status[i] | titlecase }}</td>
+              <td>{{title[i] | titlecase }}</td>
+              <td>{{dates[i] | date}}</td>
+              <td>{{reporter[i]}}</td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                  <th scope="row">4</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>@fat</td>
-                </tr>
           </tbody>
         </table>
       </div>
+      <p-paginator class="mb-1 mx-1" [rows]="5" [rowsPerPageOptions]="[5,10,20,30]" totalRecords="{{allIssuelength}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
   </div>
 

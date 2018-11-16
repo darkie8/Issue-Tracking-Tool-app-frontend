@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import {ConfirmationService} from 'primeng/api';
+import { Router } from '@angular/router';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'create-issue',
@@ -24,6 +25,7 @@ export class CreateIssueComponent implements OnInit {
   reporter: string;
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
+    private router: Router,
     private Confirmation: ConfirmationService) { }
 
   onSelect(event) {
@@ -90,13 +92,13 @@ export class CreateIssueComponent implements OnInit {
 
       const uploadedString1 = this.uploadedFiles.map(obj => obj.name);
       const uploadedString2 = this.httpservice.convertTostring(uploadedString1);
-      const data = (uploadedString1) ? {
+      const data = (uploadedString1.length !== 0) ? {
         auth: this.authtoken,
         details: {
           title: this.title,
           tags: this.tag,
           description: this.description,
-          reporter: Cookie.get('receiverName'),
+
           files: uploadedString2,
           imagefolder: sessionStorage.getItem('imagefolder')
         }
@@ -107,7 +109,6 @@ export class CreateIssueComponent implements OnInit {
             title: this.title,
             tags: this.tag,
             description: this.description,
-            reporter: Cookie.get('receiverName'),
             files: ''
           }
         };
@@ -121,6 +122,9 @@ export class CreateIssueComponent implements OnInit {
               summary: 'Submission done',
               detail: 'Submission has been done and app is redirected to personal dashboard'
             });
+          setTimeout(() => {
+            this.router.navigate([`/dashboard/${Cookie.get('receiverName').replace(/ /gi, '_')}`]);
+          }, 1400);
           }
 
           sessionStorage.setItem('key', this.title + '' + this.description);

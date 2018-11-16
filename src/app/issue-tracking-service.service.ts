@@ -94,10 +94,16 @@ export class IssueTrackingServiceService {
   /**
    * table of issue
    */
-  public table_of_issues() {
-
+  public table_of_issues(num, limit, auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/paginateIssues/${num}/${auth}`, { headers: {limit: limit}});
   }
 
+  /**
+   * getAlltheIssues
+   */
+  public getAlltheIssues(auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/allissues`, { headers: {authToken: auth}});
+  }
   // handling error
   private handleError(err: HttpErrorResponse) {
 
@@ -126,6 +132,6 @@ export class IssueTrackingServiceService {
     // tslint:disable-next-line:no-construct
     const stringObj = new String(data);
 
- return stringObj.toString();
+    return stringObj.toString();
   }
 }
