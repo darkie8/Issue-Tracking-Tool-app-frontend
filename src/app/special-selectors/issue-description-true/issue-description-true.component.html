@@ -1,7 +1,7 @@
 <div class="jumbotron jumboboy mb-0 pb-0  mx-0 px-0" style="margin-top: 70px">
   <div class="jumbotron  mb-0 pb-0">
-    <h1 class="display-4">Create Issue!</h1>
-    <p class="lead">Create issue by filling up the form below. You may attach respective screenshots or files.</p>
+    <h1 class="display-4">Issue Description</h1>
+    <p class="lead">Follow the tree below to get access to Specific Solution</p>
     <hr class="my-4">
 
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
@@ -16,6 +16,7 @@
               <div class="node-content">
                   <img src="assets/showcase/images/demo/organization/{node.data.avatar}" width="32">
                   <div>{{node.data.name}}</div>
+                  <div><b>{{node.data.issueTitle}}</b></div>
               </div>
           </ng-template>
           <ng-template let-node pTemplate="department">
@@ -32,16 +33,71 @@
   V1.0
 </div>
     </div>
-    <p-sidebar [(visible)]="visibleSidebarfull" [fullScreen]="true" [baseZIndex]="10000">
-     
-     
-     {{publishchFlow}}
-      <h1 style="font-weight:normal">Full Screen Sidebar</h1>
-      <button pButton type="button" 
-      (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
-      type: 'person',
-      styleClass: 'ui-person',
-      expanded: true,
-      data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' }}" label="Save" class="ui-button-success"></button>
-      <button pButton type="button" (click)="visibleSidebarfull = false" label="Cancel" class="ui-button-secondary"></button>
-  </p-sidebar>
+    <p-sidebar  [(visible)]="visibleSidebarfull" [fullScreen]="true" [baseZIndex]="10000">
+ <div style="overflow: scroll; height: 98vh">
+          <h1 style="font-weight:normal">Issue: {{reportInfo.title}}</h1>
+          <br>
+          <h6>Created On: {{createdOn | date}}</h6>
+          
+          <h6>Last Modilfied On: {{modifiedOn | date}}</h6><br>
+    <!--view datas-->
+    <ng-container *ngIf="label === 'Reporter'; else elseTemplate">
+        <p-panel>
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Tags</h3>
+        
+                
+                </div>
+            </p-header>
+           {{tags}}
+            <p-footer>
+                <button data-toggle="collapse" data-target="#collapseExample" pButton type="button" icon="pi pi-plus" label="Edit" class="ui-button-info" style="margin-right: .25em"></button>
+                <div class="collapse mt-2" id="collapseExample">
+                    <div class="card card-body">
+                        <p>Edit tags</p>
+                        <input class="w-100" type="text" pInputText [(ngModel)]="tags"/>
+                        <button label="Click" (onClick)="update($event)"  pButton type="button" icon="pi pi-upload" label="Update" class="ui-button-info mt-2 w-25"></button>
+                        <br>
+                    </div>
+                    
+                  </div>
+                  
+            </p-footer>
+
+            
+        </p-panel>
+        <br>
+        <p-panel>
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Description</h3>
+        
+                
+                </div>
+            </p-header>
+           <span  [innerHTML]="description"></span>
+            <p-footer>
+                <button pButton type="button" icon="pi pi-plus" label="Edit" class="ui-button-info" style="margin-right: .25em"></button>
+            </p-footer>
+        </p-panel>
+    </ng-container>
+    <ng-template #elseTemplate>
+        
+    </ng-template>
+    
+    
+    
+          <button pButton type="button" 
+          (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
+          type: 'person',
+          styleClass: 'ui-person',
+          expanded: true,
+          data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' }}" label="Save" class="ui-button-success"></button>
+          <button pButton type="button" (click)="visibleSidebarfull = false" label="Cancel" class="ui-button-secondary"></button>
+      
+ </div>
+
+ 
+</p-sidebar>
+<p-toast class="z-index: 10001" position="top-left" key="updated"></p-toast>

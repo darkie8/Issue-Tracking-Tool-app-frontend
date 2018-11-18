@@ -11,6 +11,10 @@ import { IssueDescriptionTrueComponent } from './issue-description-true/issue-de
 import {OrganizationChartModule} from 'primeng/organizationchart';
 import {SidebarModule} from 'primeng/sidebar';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {PanelModule} from 'primeng/panel';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {TabViewModule} from 'primeng/tabview';
+import {InputTextModule} from 'primeng/inputtext';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +26,11 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ToastModule,
     OrganizationChartModule,
     SidebarModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    PanelModule,
+    SplitButtonModule,
+    TabViewModule,
+    InputTextModule
   ],
   declarations: [NavbarComponentComponent, CreateIssueComponent, IssueDescriptionTrueComponent],
   exports: [

@@ -47,10 +47,10 @@
                     My issues
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" (click)="assignedToUser()">
                       <img src="assets/assigned.png" style="width: 30px;height: 30px">
                       Assigned</a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" (click)="reportedIssueByUser()">
                       <img src="assets/edit.png" style="width: 30px;height: 30px">
                       Created</a>
                     
@@ -81,7 +81,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of status; let i=index">
+            <tr *ngFor="let item of status; let i=index" (click)="goToViewissue(this.issueId[i])">
               <th scope="row" >{{i+1}}</th>
               <td>{{status[i] | titlecase }}</td>
               <td>{{title[i] | titlecase }}</td>

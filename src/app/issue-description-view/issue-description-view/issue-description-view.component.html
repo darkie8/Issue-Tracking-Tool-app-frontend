@@ -5,6 +5,6 @@
 <create-issue *ngIf="typeroute === 'create'"></create-issue>
 
 <!--issue description-->
-<issue-description-true *ngIf="typeroute === 'view'"></issue-description-true>
+<issue-description-true [reportInfo]='reportInfo' [reporterInfo]='reporterInfo' [authToken]='authToken' [issueId]='issueId' *ngIf="typeroute === 'view'"></issue-description-true>
 </div>
  

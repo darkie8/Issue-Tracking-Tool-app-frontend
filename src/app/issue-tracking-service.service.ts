@@ -59,10 +59,22 @@ export class IssueTrackingServiceService {
 
   public logout(): Observable<any> {
 
-    return this.httpCall.post(`${this.url}/api/v1/users/logout`, { 'authToken': Cookie.get('authtoken') });
+    return this.httpCall.post(`${this.url}/api/v1/users/logout`, { 'authToken': Cookie.get('authToken') });
 
   } // end logout function
 
+  /**
+   * getSingleuserInfo
+   */
+  public getSingleuserInfo(id, auth) {
+    return this.httpCall.get(`${this.url}/api/v1/users/${id}/singleUser`, { headers: { authToken: auth }});
+  }
+  /**
+   * getSingleIssue
+id,auth   */
+  public getSingleIssue(id,auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/${id}/${auth}`);
+  }
   /**
    * getIssuesAssignedByaCertainUser
    */
@@ -98,6 +110,19 @@ export class IssueTrackingServiceService {
     return this.httpCall.get(`${this.url}/api/v1/issue/paginateIssues/${num}/${auth}`, { headers: {limit: limit}});
   }
 
+/**
+   * table_of_IssuesAssignedToaCertainUser
+   */
+  public table_of_IssuesAssignedToaCertainUser(num, limit, auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedToaCertainUserPaginate/${num}/${limit}/${auth}`);
+  }
+
+  /**
+   * table_of_getIssuesAssignedByaCertainUser
+   */
+  public table_of_getIssuesAssignedByaCertainUser(num, limit, auth) {
+    return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedByaCertainUserPaginate/${num}/${limit}/${auth}`);
+  }
   /**
    * getAlltheIssues
    */

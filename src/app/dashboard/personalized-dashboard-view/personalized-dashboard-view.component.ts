@@ -22,8 +22,12 @@ export class PersonalizedDashboardViewComponent implements OnInit {
   title: any;
   reporter: any;
   dates: any;
-  allIssuelength: any[];
+  allIssuelength: any;
   totalData: any[];
+  totalData2: any[];
+  dataType: string;
+  allIssuelengthDefaultUse: any;
+  issueId: any;
   constructor(private service: IssueTrackingServiceService,
     private toast: MessageService,
     private router: Router,
@@ -31,9 +35,15 @@ export class PersonalizedDashboardViewComponent implements OnInit {
     this.details = new Object(service.getdataLocalStorage('user_details'));
     console.log(this.details);
   }
+
+  // routing to creating issue function
   goTocreateAnIssue = () => {
     this.router.navigate(['/issue_description/create']);
 
+  }
+  // routing to view issue page function
+  goToViewissue = (id) => {
+    this.router.navigate([`/issue_description/view/${id}`]);
   }
 
   showingtoast = (array: any[]) => {
@@ -48,11 +58,13 @@ export class PersonalizedDashboardViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataType = 'None';
     this.service.getAlltheIssues(Cookie.get('authToken')).subscribe(
       data1 => {
         if (data1['status'] === 200) {
           const allIssues = data1['data'];
           this.allIssuelength = allIssues.length;
+          this.allIssuelengthDefaultUse = this.allIssuelength;
           console.log(this.allIssuelength);
         } else {
           this.toast.add({
@@ -127,11 +139,13 @@ export class PersonalizedDashboardViewComponent implements OnInit {
     this.service.table_of_issues(0, '5', Cookie.get('authToken')).subscribe(
       data => {
         this.totalData = data['data'];
+        this.totalData2 = this.totalData;
         console.log(data['data']);
         this.status = data['data'].map(info => info.status);
         this.title = data['data'].map(info => info.title);
         this.dates = data['data'].map(info => info.createdOn);
         this.reporter = data['data'].map(info => info.reporter);
+        this.issueId  = data['data'].map(info => info.issueId);
       },
       err => {
         this.status = 'error';
@@ -154,6 +168,7 @@ export class PersonalizedDashboardViewComponent implements OnInit {
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
+                this.issueId  = totalData.map(info => info.issueId);
                 this.showingtoast(this.status);
               }
             },
@@ -164,6 +179,7 @@ export class PersonalizedDashboardViewComponent implements OnInit {
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
+                this.issueId  = totalData.map(info => info.issueId);
                 this.showingtoast(this.status);
               }
             },
@@ -174,6 +190,7 @@ export class PersonalizedDashboardViewComponent implements OnInit {
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
+                this.issueId  = totalData.map(info => info.issueId);
                 this.showingtoast(this.status);
               }
             },
@@ -184,6 +201,7 @@ export class PersonalizedDashboardViewComponent implements OnInit {
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
+                this.issueId  = totalData.map(info => info.issueId);
                 this.showingtoast(this.status);
               }
             }
@@ -193,97 +211,237 @@ export class PersonalizedDashboardViewComponent implements OnInit {
           label: 'Title',
           icon: 'pi pi-fw pi-pencil',
           items: [
-            { label: 'A > Z', icon: 'pi pi-angle-double-down', command: (event) => {
-              const totalData = this.order.transform(this.totalData, 'title');
-              this.status = totalData.map(info => info.status);
+            {
+              label: 'A > Z', icon: 'pi pi-angle-double-down', command: (event) => {
+                const totalData = this.order.transform(this.totalData, 'title');
+                this.status = totalData.map(info => info.status);
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
-            } },
-            { label: 'Z > A', icon: 'pi pi-angle-double-up', command: (event) => {
-              const totalData = this.order.transform(this.totalData, 'title', true);
-              this.status = totalData.map(info => info.status);
+                this.issueId  = totalData.map(info => info.issueId);
+              }
+            },
+            {
+              label: 'Z > A', icon: 'pi pi-angle-double-up', command: (event) => {
+                const totalData = this.order.transform(this.totalData, 'title', true);
+                this.status = totalData.map(info => info.status);
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
-            }  }
+                this.issueId  = totalData.map(info => info.issueId);
+              }
+            }
           ]
         },
         {
           label: 'Date',
           icon: 'pi pi-clock',
           items: [
-            { label: 'Descending', icon: 'pi pi-angle-double-down', command: (event) => {
-              const totalData = this.order.transform(this.totalData, 'date', true);
-              this.status = totalData.map(info => info.status);
+            {
+              label: 'Descending', icon: 'pi pi-angle-double-down', command: (event) => {
+                const totalData = this.order.transform(this.totalData, 'date', true);
+                this.status = totalData.map(info => info.status);
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
-            } },
-            { label: 'Ascending', icon: 'pi pi-angle-double-up', command: (event) => {
-              const totalData = this.order.transform(this.totalData, 'date', false);
-              this.status = totalData.map(info => info.status);
+                this.issueId  = totalData.map(info => info.issueId);
+              }
+            },
+            {
+              label: 'Ascending', icon: 'pi pi-angle-double-up', command: (event) => {
+                const totalData = this.order.transform(this.totalData, 'date', false);
+                this.status = totalData.map(info => info.status);
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
-            } }
+                this.issueId  = totalData.map(info => info.issueId);
+              }
+            }
           ]
         },
         {
           label: 'Reporter',
           icon: 'pi pi-user',
           items: [
-            { label: 'A > Z', icon: 'pi pi-angle-double-down', command: (event) => {
-              const totalData = this.order.transform(this.totalData, 'reporter');
-              this.status = totalData.map(info => info.status);
+            {
+              label: 'A > Z', icon: 'pi pi-angle-double-down', command: (event) => {
+                const totalData = this.order.transform(this.totalData, 'reporter');
+                this.status = totalData.map(info => info.status);
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
-            } },
-            { label: 'Z > A', icon: 'pi pi-angle-double-up',  command: (event) => {
-              const totalData = this.order.transform(this.totalData, 'reporter', true);
-              this.status = totalData.map(info => info.status);
+                this.issueId  = totalData.map(info => info.issueId);
+              }
+            },
+            {
+              label: 'Z > A', icon: 'pi pi-angle-double-up', command: (event) => {
+                const totalData = this.order.transform(this.totalData, 'reporter', true);
+                this.status = totalData.map(info => info.status);
                 this.title = totalData.map(info => info.title);
                 this.dates = totalData.map(info => info.createdOn);
                 this.reporter = totalData.map(info => info.reporter);
-            }  }
+                this.issueId  = totalData.map(info => info.issueId);
+              }
+            }
           ]
         }
       ];
 
     this.showingtoast(this.status);
   }
+  /**
+   * reportedIssueByUser
+   */
+  public reportedIssueByUser() {
+    this.allIssuelength = 0;
+    this.dataType = 'By';
+    this.service.table_of_getIssuesAssignedByaCertainUser(0, 5, Cookie.get('authToken')).subscribe(
+      data1 => {
+        if (data1['status'] === 200) {
+          const totalData = data1['data'];
+          this.totalData = totalData;
+          this.status = totalData.map(info => info.status);
+          this.title = totalData.map(info => info.title);
+          this.dates = totalData.map(info => info.createdOn);
+          this.reporter = totalData.map(info => info.reporter);
+          this.issueId  = totalData.map(info => info.issueId);
+          this.allIssuelength = this.numberofissuesR;
+        } else {
+          this.toast.add({
+            key: 'erriss2',
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Problem in fetching data'
+          });
+          this.status = [];
+          this.title = [];
+          this.dates = [];
+          this.reporter = [];
+        }
+      },
+      err => {
+        this.toast.add({
+          key: 'erriss1',
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'No Reported Issuess found'
+        });
+      }
+    );
+  }
+
+  /**
+   * assignedToUser
+   */
+  public assignedToUser() {
+    this.allIssuelength = 0;
+    this.dataType = 'To';
+    this.service.table_of_IssuesAssignedToaCertainUser(0, 5, Cookie.get('authToken')).subscribe(
+      data1 => {
+        if (data1['status'] === 200) {
+          const totalData = data1['data'];
+          this.totalData = totalData;
+          this.status = totalData.map(info => info.status);
+          this.title = totalData.map(info => info.title);
+          this.dates = totalData.map(info => info.createdOn);
+          this.reporter = totalData.map(info => info.reporter);
+          this.issueId  = totalData.map(info => info.issueId);
+          this.allIssuelength = this.numberofissuesA;
+        } else {
+          this.toast.add({
+            key: 'erriss2',
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'No assigned Issuess found'
+          });
+
+          this.status = [];
+          this.title = [];
+          this.dates = [];
+          this.reporter = [];
+        }
+      },
+      err => {
+        this.toast.add({
+          key: 'erriss2',
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Problem in fetching data'
+        });
+      }
+    );
+  }
 
   public paginate(event) {
     console.log(event.page);
     // table
-    this.service.table_of_issues(event.page * event.rows, `${event.rows}`, Cookie.get('authToken')).subscribe(
-      data => {
-        this.totalData = data['data'];
-        console.log(data['data']);
-        this.status = data['data'].map(info => info.status);
-        this.title = data['data'].map(info => info.title);
-        this.dates = data['data'].map(info => info.createdOn);
-        this.reporter = data['data'].map(info => info.reporter);
-      },
-      err => {
-        this.status = 'error';
-        this.title = 'error';
-        this.dates = 'error';
-        this.reporter = 'error';
-      }
-    );
+    if (this.dataType === 'None') {
+      this.service.table_of_issues(event.page * event.rows, `${event.rows}`, Cookie.get('authToken')).subscribe(
+        data => {
+          this.totalData = data['data'];
+          console.log(data['data']);
+          this.status = data['data'].map(info => info.status);
+          this.title = data['data'].map(info => info.title);
+          this.dates = data['data'].map(info => info.createdOn);
+          this.reporter = data['data'].map(info => info.reporter);
+          this.issueId  = data['data'].map(info => info.issueId);
+        },
+        err => {
+          this.status = 'error';
+          this.title = 'error';
+          this.dates = 'error';
+          this.reporter = 'error';
+        }
+      );
+    } else if (this.dataType === 'To') {
+      this.service.table_of_IssuesAssignedToaCertainUser(event.page * event.rows, `${event.rows}`, Cookie.get('authToken')).subscribe(
+        data => {
+          this.totalData = data['data'];
+          console.log(data['data']);
+          this.status = data['data'].map(info => info.status);
+          this.title = data['data'].map(info => info.title);
+          this.dates = data['data'].map(info => info.createdOn);
+          this.reporter = data['data'].map(info => info.reporter);
+          this.issueId  = data['data'].map(info => info.issueId);
+        },
+        err => {
+          this.status = 'error';
+          this.title = 'error';
+          this.dates = 'error';
+          this.reporter = 'error';
+        }
+      );
+    } else if (this.dataType === 'By') {
+      this.service.table_of_getIssuesAssignedByaCertainUser(event.page * event.rows, `${event.rows}`, Cookie.get('authToken')).subscribe(
+        data => {
+          this.totalData = data['data'];
+          console.log(data['data']);
+          this.status = data['data'].map(info => info.status);
+          this.title = data['data'].map(info => info.title);
+          this.dates = data['data'].map(info => info.createdOn);
+          this.reporter = data['data'].map(info => info.reporter);
+          this.issueId  = data['data'].map(info => info.issueId);
+        },
+        err => {
+          this.status = 'error';
+          this.title = 'error';
+          this.dates = 'error';
+          this.reporter = 'error';
+        });
+    }
   }
   /**
    * default
    */
   public default() {
     // tslint:disable-next-line:prefer-const
-    let totalData = this.totalData;
+    let totalData = this.totalData2;
     this.status = totalData.map(info => info.status);
     this.title = totalData.map(info => info.title);
     this.dates = totalData.map(info => info.createdOn);
     this.reporter = totalData.map(info => info.reporter);
+    this.issueId  = totalData.map(info => info.issueId);
+    this.allIssuelength = this.allIssuelengthDefaultUse;
     this.showingtoast(this.status);
   }
 
