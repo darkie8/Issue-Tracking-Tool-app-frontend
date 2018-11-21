@@ -4,7 +4,7 @@ import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { saveAs } from 'file-saver';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -36,6 +36,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   label: any;
   createdOn: any;
   modifiedOn: any;
+  msgs2: Message[] = [];
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
     private sanitizer: DomSanitizer) { }
@@ -224,7 +225,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
       }, err => {
         this.msgs = [];
         this.msgs.push({ severity: 'error', summary: 'Failure', detail: `Tags couldn't be Updated` });
-       }
+      }
     );
 
   }
@@ -250,7 +251,18 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   /**
    * download
    */
-  public download() {
-    
+  public download(path) {
+    this.httpservice.downloadFile(path, this.issueTotal.issueId, this.authToken).subscribe(
+      data => {
+        saveAs(data, path);
+        this.msgs2 = [];
+        this.msgs2.push({ severity: 'info', summary: 'Success', detail: 'Download will start soon' });
+
+      },
+      err => {
+        this.msgs2 = [];
+        this.msgs2.push({ severity: 'error', summary: 'Failure', detail: `Download failed` });
+      }
+    );
   }
 }

@@ -176,4 +176,15 @@ public editDescription(description, issueId, auth) {
   return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editDescription/${auth}`, {description: description});
 }
 
+/**
+ * downloadFile
+ */
+public downloadFile(filePath,issueId,auth) {
+  return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/download/${auth}`, {filePath: filePath},
+   {responseType: 'blob',
+  headers: new HttpHeaders().append('Content-Type' , 'application/json' )});
 }
+
+}
+
+
