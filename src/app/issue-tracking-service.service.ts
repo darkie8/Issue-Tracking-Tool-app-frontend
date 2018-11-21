@@ -159,4 +159,21 @@ id,auth   */
 
     return stringObj.toString();
   }
+
+
+/**
+ * editTags
+ */
+public editTags(tags, issueId, auth) {
+  console.log(tags);
+  return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editTags/${auth}`, {tags: tags[0]});
+}
+/**
+ * editDescription
+ */
+public editDescription(description, issueId, auth) {
+  console.log(description);
+  return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editDescription/${auth}`, {description: description});
+}
+
 }

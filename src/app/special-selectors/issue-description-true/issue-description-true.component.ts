@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -10,9 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'issue-description-true',
   templateUrl: './issue-description-true.component.html',
   styleUrls: ['./issue-description-true.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [MessageService]
 })
 export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
+  msgs: Message[] = [];
+  msgs1: Message[] = [];
   data1: TreeNode[];
   visibleSidebarfull;
   publishchFlow;
@@ -34,7 +38,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   modifiedOn: any;
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
-    private sanitizer:DomSanitizer) { }
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
 
@@ -199,6 +203,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
     this.messageService.add({ severity: 'success', summary: 'Node Selected', detail: event.node.label });
     this.issueTotal = event.node.data.issueTotal;
     this.tags = this.issueTotal.tags;
+    console.log(this.tags);
     this.description = this.sanitizer.bypassSecurityTrustHtml(this.issueTotal.description);
     this.label = event.node.label;
     this.createdOn = this.issueTotal.createdOn;
@@ -207,16 +212,45 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
 
   }
 
-  save() {
-    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Data Saved' });
+
+
+  public updateTags() {
+    this.httpservice.editTags([this.issueTotal.tags, 'default'], this.issueTotal.issueId, this.authToken).subscribe(
+      data => {
+        this.tags = this.issueTotal.tags;
+        console.log(data['data']);
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: 'Success', detail: 'Tags Updated' });
+      }, err => {
+        this.msgs = [];
+        this.msgs.push({ severity: 'error', summary: 'Failure', detail: `Tags couldn't be Updated` });
+       }
+    );
+
+  }
+  /**
+   * updateDescription
+   */
+  public updateDescription() {
+    this.httpservice.editDescription(this.issueTotal.description, this.issueTotal.issueId, this.authToken).subscribe(
+      data => {
+        this.description = this.issueTotal.description;
+        console.log(data['data']);
+        this.msgs1 = [];
+        this.msgs1.push({ severity: 'info', summary: 'Success', detail: 'Description Updated' });
+      },
+      err => {
+        this.msgs1 = [];
+        this.msgs1.push({ severity: 'error', summary: 'Failure', detail: `Description couldn't be Updated` });
+      }
+    );
+
   }
 
-  update() {
-    this.messageService.add({key: 'updated',severity: 'info', summary: 'Success', detail: 'Tags Updated' });
+  /**
+   * download
+   */
+  public download() {
+    
   }
-
-  delete() {
-    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Data Deleted' });
-  }
-
 }

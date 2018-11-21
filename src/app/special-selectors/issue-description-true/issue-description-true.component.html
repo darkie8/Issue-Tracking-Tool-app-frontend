@@ -10,94 +10,130 @@
     <div style="overflow: scroll;">
       <p>Organization with advanced customization.</p>
       <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
-          styleClass="company">
-          <ng-template let-node pTemplate="person">
-              <div class="node-header ui-corner-top">{{node.label}}</div>
-              <div class="node-content">
-                  <img src="assets/showcase/images/demo/organization/{node.data.avatar}" width="32">
-                  <div>{{node.data.name}}</div>
-                  <div><b>{{node.data.issueTitle}}</b></div>
-              </div>
-          </ng-template>
-          <ng-template let-node pTemplate="department">
-              {{node.label}}
-          </ng-template>
+        styleClass="company">
+        <ng-template let-node pTemplate="person">
+          <div class="node-header ui-corner-top">{{node.label}}</div>
+          <div class="node-content">
+            <img src="assets/showcase/images/demo/organization/{node.data.avatar}" width="32">
+            <div>{{node.data.name}}</div>
+            <div><b>{{node.data.issueTitle}}</b></div>
+          </div>
+        </ng-template>
+        <ng-template let-node pTemplate="department">
+          {{node.label}}
+        </ng-template>
       </p-organizationChart>
     </div>
 
 
 
-    </div>
-    <!--footer-->
-<div class="card-footer text-white bg-dark text-right">
-  V1.0
+  </div>
+  <!--footer-->
+  <div class="card-footer text-white bg-dark text-right">
+    V1.0
+  </div>
 </div>
-    </div>
-    <p-sidebar  [(visible)]="visibleSidebarfull" [fullScreen]="true" [baseZIndex]="10000">
- <div style="overflow: scroll; height: 98vh">
-          <h1 style="font-weight:normal">Issue: {{reportInfo.title}}</h1>
-          <br>
-          <h6>Created On: {{createdOn | date}}</h6>
-          
-          <h6>Last Modilfied On: {{modifiedOn | date}}</h6><br>
+<p-sidebar [(visible)]="visibleSidebarfull" [fullScreen]="true" [baseZIndex]="10000">
+  <div style="overflow-y: scroll; height: 98vh">
+    <h1 style="font-weight:normal">Issue: {{reportInfo.title}}</h1>
+    <br>
+    <h6>Created On: {{createdOn | date}}</h6>
+
+    <h6>Last Modilfied On: {{modifiedOn | date}}</h6><br>
     <!--view datas-->
     <ng-container *ngIf="label === 'Reporter'; else elseTemplate">
-        <p-panel>
-            <p-header>
-                <div class="ui-helper-clearfix">
-                    <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Tags</h3>
-        
-                
-                </div>
-            </p-header>
-           {{tags}}
-            <p-footer>
-                <button data-toggle="collapse" data-target="#collapseExample" pButton type="button" icon="pi pi-plus" label="Edit" class="ui-button-info" style="margin-right: .25em"></button>
-                <div class="collapse mt-2" id="collapseExample">
-                    <div class="card card-body">
-                        <p>Edit tags</p>
-                        <input class="w-100" type="text" pInputText [(ngModel)]="tags"/>
-                        <button label="Click" (onClick)="update($event)"  pButton type="button" icon="pi pi-upload" label="Update" class="ui-button-info mt-2 w-25"></button>
-                        <br>
-                    </div>
-                    
-                  </div>
-                  
-            </p-footer>
+      <!--tags-->
+      <p-panel>
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Tags</h3>
 
-            
-        </p-panel>
-        <br>
-        <p-panel>
-            <p-header>
-                <div class="ui-helper-clearfix">
-                    <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Description</h3>
+
+          </div>
+        </p-header>
+        {{tags}}
+        <p-footer>
+          <button data-toggle="collapse" data-target="#collapseExample" pButton type="button" icon="pi pi-plus" label="Edit"
+            class="ui-button-info" style="margin-right: .25em"></button>
+          <div class="collapse mt-2" id="collapseExample">
+            <div class="card card-body">
+              <p>Edit tags :</p>
+              <input class="w-100" type="text" pInputText [(ngModel)]="this.issueTotal.tags" />
+              <p-messages [(value)]="msgs"></p-messages>
+              <br>
+            </div>
+            <button (click)="updateTags()" type="button" class="btn btn-primary mt-2" style="font-size: 14px">Update</button>
+          </div>
+
+        </p-footer>
         
-                
-                </div>
+
+      </p-panel>
+      <!--tags end-->
+      <br>
+      <!--description -->
+      <p-panel>
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Description</h3>
+
+
+          </div>
+        </p-header>
+        <div style="overflow-x: scroll !important;"><span [innerHTML]="description"></span></div>
+        <p-footer>
+          <button data-toggle="collapse" data-target="#collapseExample1" pButton type="button" icon="pi pi-plus" label="Edit"
+            class="ui-button-info" style="margin-right: .25em"></button>
+          <div class="collapse mt-2" id="collapseExample1">
+            <div class="card card-body">
+              <p>Edit Description :</p>
+              <p-editor [(ngModel)]="this.issueTotal.description" [style]="{'height':'320px'}"></p-editor>
+
+              <p-messages [(value)]="msgs1"></p-messages>
+              <br>
+            </div>
+            <button (click)="updateDescription()" type="button" class="btn btn-primary mt-2" style="font-size: 14px">Update</button>
+          </div>
+
+        </p-footer>
+      </p-panel>
+      <!--description ends-->
+      <br>
+      <!--files-->
+      <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <h3 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Incorporated files</h3>
+    
+    
+              </div>
             </p-header>
-           <span  [innerHTML]="description"></span>
+           <p class="mx-1"> Click to download:</p>
             <p-footer>
-                <button pButton type="button" icon="pi pi-plus" label="Edit" class="ui-button-info" style="margin-right: .25em"></button>
+                    <button *ngFor="let file of this.issueTotal.files" type="button" class="btn btn-primary mt-2 mx-1" style="font-size: 14px">{{file.split('/')[2]}}</button>
+    
             </p-footer>
-        </p-panel>
+            
+    
+          </p-panel>
+      <!--files ends-->
     </ng-container>
     <ng-template #elseTemplate>
-        
+
     </ng-template>
-    
-    
-    
-          <button pButton type="button" 
-          (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
+
+
+<br>
+    <button pButton type="button" (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
           type: 'person',
           styleClass: 'ui-person',
           expanded: true,
-          data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' }}" label="Save" class="ui-button-success"></button>
-          <button pButton type="button" (click)="visibleSidebarfull = false" label="Cancel" class="ui-button-secondary"></button>
-      
- </div>
+          data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' }}"
+      label="Save" class="ui-button-success"></button>
+    <button pButton type="button" (click)="visibleSidebarfull = false" label="Cancel" class="ui-button-secondary"></button>
 
- 
+  </div>
+
+
 </p-sidebar>
 <p-toast class="z-index: 10001" position="top-left" key="updated"></p-toast>

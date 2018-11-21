@@ -15,6 +15,9 @@ import {PanelModule} from 'primeng/panel';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {TabViewModule} from 'primeng/tabview';
 import {InputTextModule} from 'primeng/inputtext';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +33,10 @@ import {InputTextModule} from 'primeng/inputtext';
     PanelModule,
     SplitButtonModule,
     TabViewModule,
-    InputTextModule
+    InputTextModule,
+    MessageModule,
+    MessagesModule,
+    ScrollPanelModule
   ],
   declarations: [NavbarComponentComponent, CreateIssueComponent, IssueDescriptionTrueComponent],
   exports: [
