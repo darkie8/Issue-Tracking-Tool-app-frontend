@@ -191,7 +191,7 @@ id,auth   */
    */
   public likeGenerate(userId, issueId, auth, purpose) {
     if (purpose === 'issue') {
-      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/addlike/${auth}`, { likegiver: userId })
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/addlike/${auth}`, { likegiver: userId });
     }
   }
   /**
@@ -199,7 +199,7 @@ id,auth   */
    */
   public likeDeleter(userId, issueId, auth, purpose) {
     if (purpose === 'issue') {
-      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletelike/${auth}`, { likegiver: userId })
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletelike/${auth}`, { likegiver: userId });
     }
   }
  /**
@@ -207,7 +207,7 @@ id,auth   */
    */
   public dislikeGenerate(userId, issueId, auth, purpose) {
     if (purpose === 'issue') {
-      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/adddislike/${auth}`, { dislikegiver: userId })
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/adddislike/${auth}`, { dislikegiver: userId });
     }
   }
   /**
@@ -215,7 +215,7 @@ id,auth   */
    */
   public dislikeDeleter(userId, issueId, auth, purpose) {
     if (purpose === 'issue') {
-      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletedislike/${auth}`, { dislikegiver: userId })
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletedislike/${auth}`, { dislikegiver: userId });
     }
   }
 }
