@@ -47,3 +47,7 @@
     background-color: #57585f;
     color: white;
 }
+#likeIssue.active:hover , #dislikeIssue.active:hover {
+    background-color: white !important;
+}
+ 

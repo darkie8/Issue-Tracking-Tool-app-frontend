@@ -67,12 +67,12 @@ export class IssueTrackingServiceService {
    * getSingleuserInfo
    */
   public getSingleuserInfo(id, auth) {
-    return this.httpCall.get(`${this.url}/api/v1/users/${id}/singleUser`, { headers: { authToken: auth }});
+    return this.httpCall.get(`${this.url}/api/v1/users/${id}/singleUser`, { headers: { authToken: auth } });
   }
   /**
    * getSingleIssue
 id,auth   */
-  public getSingleIssue(id,auth) {
+  public getSingleIssue(id, auth) {
     return this.httpCall.get(`${this.url}/api/v1/issue/${id}/${auth}`);
   }
   /**
@@ -107,12 +107,12 @@ id,auth   */
    * table of issue
    */
   public table_of_issues(num, limit, auth) {
-    return this.httpCall.get(`${this.url}/api/v1/issue/paginateIssues/${num}/${auth}`, { headers: {limit: limit}});
+    return this.httpCall.get(`${this.url}/api/v1/issue/paginateIssues/${num}/${auth}`, { headers: { limit: limit } });
   }
 
-/**
-   * table_of_IssuesAssignedToaCertainUser
-   */
+  /**
+     * table_of_IssuesAssignedToaCertainUser
+     */
   public table_of_IssuesAssignedToaCertainUser(num, limit, auth) {
     return this.httpCall.get(`${this.url}/api/v1/issue/getIssuesAssignedToaCertainUserPaginate/${num}/${limit}/${auth}`);
   }
@@ -127,7 +127,7 @@ id,auth   */
    * getAlltheIssues
    */
   public getAlltheIssues(auth) {
-    return this.httpCall.get(`${this.url}/api/v1/issue/allissues`, { headers: {authToken: auth}});
+    return this.httpCall.get(`${this.url}/api/v1/issue/allissues`, { headers: { authToken: auth } });
   }
   // handling error
   private handleError(err: HttpErrorResponse) {
@@ -161,30 +161,63 @@ id,auth   */
   }
 
 
-/**
- * editTags
- */
-public editTags(tags, issueId, auth) {
-  console.log(tags);
-  return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editTags/${auth}`, {tags: tags[0]});
-}
-/**
- * editDescription
- */
-public editDescription(description, issueId, auth) {
-  console.log(description);
-  return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editDescription/${auth}`, {description: description});
-}
+  /**
+   * editTags
+   */
+  public editTags(tags, issueId, auth) {
+    console.log(tags);
+    return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editTags/${auth}`, { tags: tags[0] });
+  }
+  /**
+   * editDescription
+   */
+  public editDescription(description, issueId, auth) {
+    console.log(description);
+    return this.httpCall.put(`${this.url}/api/v1/issue/${issueId}/editDescription/${auth}`, { description: description });
+  }
 
-/**
- * downloadFile
- */
-public downloadFile(filePath,issueId,auth) {
-  return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/download/${auth}`, {filePath: filePath},
-   {responseType: 'blob',
-  headers: new HttpHeaders().append('Content-Type' , 'application/json' )});
-}
-
+  /**
+   * downloadFile
+   */
+  public downloadFile(filePath, issueId, auth) {
+    return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/download/${auth}`, { filePath: filePath },
+      {
+        responseType: 'blob',
+        headers: new HttpHeaders().append('Content-Type', 'application/json')
+      });
+  }
+  /**
+   * likeGenerate
+   */
+  public likeGenerate(userId, issueId, auth, purpose) {
+    if (purpose === 'issue') {
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/addlike/${auth}`, { likegiver: userId })
+    }
+  }
+  /**
+   * likeDeleter
+   */
+  public likeDeleter(userId, issueId, auth, purpose) {
+    if (purpose === 'issue') {
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletelike/${auth}`, { likegiver: userId })
+    }
+  }
+ /**
+   * dislikeGenerate
+   */
+  public dislikeGenerate(userId, issueId, auth, purpose) {
+    if (purpose === 'issue') {
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/adddislike/${auth}`, { dislikegiver: userId })
+    }
+  }
+  /**
+   * likeDeleter
+   */
+  public dislikeDeleter(userId, issueId, auth, purpose) {
+    if (purpose === 'issue') {
+      return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletedislike/${auth}`, { dislikegiver: userId })
+    }
+  }
 }
 
 

@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
+declare var $: any;
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -29,6 +30,10 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   reportInfo1: any;
   display: boolean;
   issueTotal;
+  like = false;
+  dislike = false;
+  and: boolean = this.like && this.dislike;
+  nand: boolean = (!this.and) ? true : false;
   // tslint:disable-next-line:max-line-length
   items: ({ label: string; icon: string; command: () => void; url?: undefined; routerLink?: undefined; } | { label: string; icon: string; url: string; command?: undefined; routerLink?: undefined; } | { label: string; icon: string; routerLink: string[]; command?: undefined; url?: undefined; })[];
   tags: any;
@@ -37,6 +42,8 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   createdOn: any;
   modifiedOn: any;
   msgs2: Message[] = [];
+  activeTestL: boolean;
+  activeTestD: boolean;
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
     private sanitizer: DomSanitizer) { }
@@ -203,6 +210,16 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
     setTimeout(() => { this.visibleSidebarfull = true; }, 1000);
     this.messageService.add({ severity: 'success', summary: 'Node Selected', detail: event.node.label });
     this.issueTotal = event.node.data.issueTotal;
+    this.activeTestL = (this.issueTotal.likegiver.indexOf(this.reporterInfo.userId) === -1) ? false : true;
+    this.activeTestD = (this.issueTotal.dislikegiver.indexOf(this.reporterInfo.userId) === -1) ? false : true;
+    if (this.activeTestL === this.activeTestD) {
+      this.like = false;
+      this.dislike = false;
+    } else {
+      this.like = (this.issueTotal.likegiver.indexOf(this.reporterInfo.userId) === -1) ? true : false;
+      this.dislike = (this.issueTotal.dislikegiver.indexOf(this.reporterInfo.userId) === -1) ? true : false;
+    }
+    console.log([this.like, this.dislike]);
     this.tags = this.issueTotal.tags;
     console.log(this.tags);
     this.description = this.sanitizer.bypassSecurityTrustHtml(this.issueTotal.description);
@@ -265,4 +282,205 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
       }
     );
   }
+  /**
+   * likeGenerate
+   */
+  public likeGenerate(purpose) {
+
+    const func1 = (): any => {
+
+      if (this.like === false && this.dislike === true) {
+        // calling api to delete like and delete liker's id
+        return new Promise((resolve, reject) => {
+          this.httpservice.likeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+            .subscribe(
+              data1 => {
+                console.log(data1['data1']);
+                $('#likeIssue').removeClass('active');
+                resolve({ like: false, dislike: false });
+              },
+              err => {
+                console.log(err);
+                reject({ like: this.activeTestL, dislike: this.activeTestD });
+              }
+            );
+        });
+      }
+
+
+      return new Promise((resolve, reject) => {
+        if (this.nand) {
+          // when not first like click
+          if (this.like === true && this.dislike === false) {
+            // calling api to add like and update liker's id
+            this.httpservice.likeGenerate(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+              .subscribe(
+                data => {
+                  console.log(data['data']);
+                  // calling api to delete dislike and delete disliker's id
+                  this.httpservice.dislikeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+                    .subscribe(
+                      data1 => {
+                        console.log(data1['data1']);
+                        $('#likeIssue').addClass('active');
+                        $('#dislikeIssue').removeClass('active');
+                        resolve({ like: false, dislike: true });
+                      },
+                      err => {
+                        console.log(err);
+                        reject({ like: this.activeTestL, dislike: this.activeTestD });
+                      }
+                    );
+                },
+                err => {
+                  console.log(err);
+                  reject({ like: this.activeTestL, dislike: this.activeTestD });
+                }
+              );
+          } else if (this.like === false && this.dislike === false) { // when  first like click
+            console.log(this.reporterInfo.userId);
+
+            // calling api to add like and update liker's id
+            this.httpservice.likeGenerate(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+              .subscribe(
+                data => {
+                  console.log(data['data']);
+                  $('#likeIssue').addClass('active');
+                  resolve({ like: false, dislike: true });
+                },
+                err => {
+                  console.log(err);
+                  reject({ like: this.activeTestL, dislike: this.activeTestD });
+                }
+              );
+
+          }
+        } else if (this.like === false && this.dislike === true) {
+          // calling api to delete like and delete liker's id
+          this.httpservice.likeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+            .subscribe(
+              data1 => {
+                console.log(data1['data1']);
+                $('#likeIssue').removeClass('active');
+                resolve({ like: false, dislike: false });
+              },
+              err => {
+                console.log(err);
+                reject({ like: this.activeTestL, dislike: this.activeTestD });
+              }
+            );
+        }
+      });
+
+
+
+
+    };
+
+    const func2 = (res): any => {
+      this.dislike = res.dislike;
+      this.like = res.like;
+    };
+
+    func1().then(func2);
+  }
+
+  /**
+   * dislikeGenerate
+   */
+  public dislikeGenerate(purpose) {
+    const func3 = (): any => {
+      if (this.like === true && this.dislike === false) {
+        
+        return new Promise((resolve, reject) => {
+          // calling api to delete dislike and delete disliker's id
+          this.httpservice.dislikeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+            .subscribe(
+              data1 => {
+                console.log(data1['data1']);
+                $('#dislikeIssue').removeClass('active');
+                resolve({ like: false, dislike: false });
+              },
+              err => {
+                console.log(err);
+                reject({ like: this.activeTestL, dislike: this.activeTestD });
+              }
+            );
+        });
+      }
+
+
+      return new Promise((resolve, reject) => {
+        if (this.nand) {
+          // when not first dislike click
+          if (this.like === false && this.dislike === true) {
+
+            // calling api to add dislike and update liker's id
+            this.httpservice.dislikeGenerate(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+              .subscribe(
+                data => {
+                  console.log(data['data']);
+                  // calling api to delete like and delete liker's id
+                  this.httpservice.likeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+                    .subscribe(
+                      data1 => {
+                        console.log(data1['data1']);
+                        $('#dislikeIssue').addClass('active');
+                        $('#likeIssue').removeClass('active');
+                        resolve({ like: true, dislike: false });
+                      },
+                      err => {
+                        console.log(err);
+                        reject({ like: this.activeTestL, dislike: this.activeTestD });
+                      }
+                    );
+                },
+                err => {
+                  console.log(err);
+                  reject({ like: this.activeTestL, dislike: this.activeTestD });
+                }
+              );
+          } else if (this.like === false && this.dislike === false) { // when first dislike click
+
+            // calling api to add dislike and update liker's id
+            this.httpservice.dislikeGenerate(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+              .subscribe(
+                data => {
+                  console.log(data['data']);
+                  $('#dislikeIssue').addClass('active');
+                  resolve({ like: true, dislike: false });
+                },
+                err => {
+                  console.log(err);
+                  reject({ like: this.activeTestL, dislike: this.activeTestD });
+                }
+              );
+          }
+        } else if (this.like === true && this.dislike === false) {
+          // calling api to delete dislike and delete disliker's id
+          this.httpservice.dislikeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
+            .subscribe(
+              data1 => {
+                console.log(data1['data1']);
+                $('#dislikeIssue').removeClass('active');
+                resolve({ like: false, dislike: false });
+              },
+              err => {
+                console.log(err);
+                reject({ like: this.activeTestL, dislike: this.activeTestD });
+              }
+            );
+        }
+      }
+      );
+    };
+
+    const func4 = (res): any => {
+      this.like = res.like;
+      this.dislike = res.dislike;
+    };
+
+    func3().then(func4);
+  }
+
 }

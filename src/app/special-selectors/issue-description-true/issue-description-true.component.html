@@ -124,6 +124,13 @@
 
 
 <br>
+<button type="button" class="btn btn-outline-success m-2" [ngClass]="{'active': activeTestL}" id="likeIssue" (click)="likeGenerate('issue');">
+  <img src="assets/like_button.png" height="30px" width="30px">
+</button>
+<button type="button" class="btn btn-outline-danger mr-2 my-2" [ngClass]="{'active': activeTestD}" id="dislikeIssue" (click)="dislikeGenerate('issue');">
+    <img src="assets/dislike_button.png" height="30px" width="30px">
+</button>
+<br>
     <button pButton type="button" (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
           type: 'person',
           styleClass: 'ui-person',
