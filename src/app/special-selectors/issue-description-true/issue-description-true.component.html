@@ -4,7 +4,7 @@
     <p class="lead">Follow the tree below to get access to Specific Solution</p>
     <hr class="my-4">
 
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast [baseZIndex]= 12000  [style]="{marginTop: '80px'}"></p-toast>
 
     <h3 class="first">Advanced</h3>
     <div style="overflow: scroll;">
@@ -111,7 +111,7 @@
            <p class="mx-1"> Click to download:</p>
             <p-footer>
                     <button *ngFor="let file of this.issueTotal.files" (click)="download(file.split('/')[2])" type="button" class="btn btn-primary mt-2 mx-1" style="font-size: 14px">{{file.split('/')[2]}}</button>
-                    <p-messages [(value)]="msgs2"></p-messages>
+                    <p-messages [key]='download' [(value)]="msgs2"></p-messages>
             </p-footer>
             
     
@@ -131,6 +131,25 @@
     <img src="assets/dislike_button.png" height="30px" width="30px">
 </button>
 <br>
+<!--comment section-->
+<br>
+<p-panel>
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <h5 class="ui-panel-title" style="display:inline-block;margin-top:.4em">Comments section</h5>
+
+
+    </div>
+  </p-header>
+ 
+  <p-footer>
+    <p-editor [(ngModel)]="comment" [style]="{'height':'320px'}"></p-editor>
+
+  </p-footer>
+  
+
+</p-panel>
+<!--comment section ends-->
     <button pButton type="button" (click)="visibleSidebarfull = false;this.data1[0].children[3] = { label: 'CFO',
           type: 'person',
           styleClass: 'ui-person',
@@ -143,4 +162,4 @@
 
 
 </p-sidebar>
-<p-toast class="z-index: 10001" position="top-left" key="updated"></p-toast>
+<p-toast  position="top-left" key="updated"></p-toast>

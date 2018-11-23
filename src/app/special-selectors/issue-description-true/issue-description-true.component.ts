@@ -44,6 +44,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   msgs2: Message[] = [];
   activeTestL: boolean;
   activeTestD: boolean;
+  comment: any;
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
     private sanitizer: DomSanitizer) { }
@@ -273,7 +274,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
       data => {
         saveAs(data, path);
         this.msgs2 = [];
-        this.msgs2.push({ severity: 'info', summary: 'Success', detail: 'Download will start soon' });
+        this.msgs2.push({key: 'download', severity: 'info', summary: 'Success', detail: 'Download will start soon' });
 
       },
       err => {
@@ -391,7 +392,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   public dislikeGenerate(purpose) {
     const func3 = (): any => {
       if (this.like === true && this.dislike === false) {
-        
+
         return new Promise((resolve, reject) => {
           // calling api to delete dislike and delete disliker's id
           this.httpservice.dislikeDeleter(this.reporterInfo.userId, this.issueId, this.authToken, purpose)
