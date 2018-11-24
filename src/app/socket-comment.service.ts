@@ -1,0 +1,100 @@
+import { Injectable } from '@angular/core';
+import * as io from 'socket.io-client';
+
+import { Observable } from 'rxjs/Observable';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/toPromise';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SocketCommentService {
+
+  private url = 'https://localhost:3000';
+  private socket;
+  constructor(httpCall: HttpClient) {
+    this.socket = io(`${this.url}/comment`);
+  }
+
+
+  public verifyUser = () => {
+
+    return Observable.create((observer) => {
+
+      this.socket.on('verify', (data) => {
+
+        observer.next(data);
+
+      }); // end Socket
+
+    }); // end Observable
+
+  } // end verifyUser
+
+  /**
+   * tokenVerfication
+   */
+  public tokenVerfication(token) {
+    this.socket.emit('token-verify', token);
+  }
+
+  /**
+   * sendIssueInfoNotify
+   */
+  public sendIssueInfoNotify(issue) {
+    return Observable.create((observer) => {
+      this.socket.on('verified', (data) => {
+        observer.next(data);
+        // send issue details
+        this.socket.emit('issue', issue);
+      });
+    });
+  }
+
+
+  /**
+   * getComments
+   */
+  public getCommentingNotification(comment) {
+    return Observable.create((observer) => {
+      this.socket.on('commenting-notification', data => {
+        this.socket.emit('comment', comment);
+        observer.next(data);
+      });
+    });
+  }
+
+  /**
+ * getComment
+ */
+public getComment() {
+  return Observable.create((observer) => {
+    this.socket.on('commenting-notification', data => {
+      observer.next(data);
+    });
+  });
+}
+
+public typing() {
+  this.socket.emit('typing', 'someone is typing');
+}
+
+/**
+ * typingNotifier
+ */
+public typingNotifier() {
+  return Observable.create(observer => {
+    this.socket.on('typing-sent', data => {
+      observer.next(data);
+    });
+  });
+}
+
+
+}
+

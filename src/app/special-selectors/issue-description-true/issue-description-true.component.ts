@@ -274,7 +274,7 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
       data => {
         saveAs(data, path);
         this.msgs2 = [];
-        this.msgs2.push({key: 'download', severity: 'info', summary: 'Success', detail: 'Download will start soon' });
+        this.msgs2.push({ key: 'download', severity: 'info', summary: 'Success', detail: 'Download will start soon' });
 
       },
       err => {
