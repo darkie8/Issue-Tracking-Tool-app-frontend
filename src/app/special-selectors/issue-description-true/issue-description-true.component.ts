@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { IssueTrackingServiceService } from 'src/app/issue-tracking-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
+import { SocketCommentService } from 'src/app/socket-comment.service';
 declare var $: any;
 
 @Component({
@@ -47,7 +48,8 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   comment: any;
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private commentSocket: SocketCommentService) { }
 
   ngOnInit() {
 
@@ -483,5 +485,23 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
 
     func3().then(func4);
   }
+
+  /**
+   * commenting
+   */
+  public addComment() {
+    this.commentSocket.verifyUser().subscribe(data => {
+      console.log(data);
+      this.commentSocket.tokenVerfication(this.authToken);
+this.commentSocket.sendIssueInfoNotify(this.issueTotal)
+.subscribe(data1 => {
+  console.log(data1);
+  this.commentSocket.getCommentingNotification(this.comment)
+  .subscribe(data2 => {} , err => {});
+}, err => {})
+
+    }, err => { });
+  }
+
 
 }

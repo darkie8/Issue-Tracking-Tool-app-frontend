@@ -72,29 +72,40 @@ export class SocketCommentService {
   /**
  * getComment
  */
-public getComment() {
-  return Observable.create((observer) => {
-    this.socket.on('commenting-notification', data => {
-      observer.next(data);
+  public getComment() {
+    return Observable.create((observer) => {
+      this.socket.on('comment-view', data => {
+        observer.next(data);
+      });
     });
-  });
-}
+  }
 
-public typing() {
-  this.socket.emit('typing', 'someone is typing');
-}
+  public typing() {
+    this.socket.emit('typing', 'someone is typing');
+  }
 
-/**
- * typingNotifier
- */
-public typingNotifier() {
-  return Observable.create(observer => {
-    this.socket.on('typing-sent', data => {
-      observer.next(data);
+  /**
+   * typingNotifier
+   */
+  public typingNotifier() {
+    return Observable.create(observer => {
+      this.socket.on('typing-sent', data => {
+        observer.next(data);
+      });
     });
-  });
-}
+  }
 
+  /**
+   * deletingComment
+   */
+  public deletingComment(issue, comment) {
+    this.socket.emit('issue-delete-hash', {issue: issue, comment: comment});
+    return Observable.create(observer => {
+      this.socket.on('response', data => {
+        observer.next(data);
+      });
+    });
+  }
 
 }
 
