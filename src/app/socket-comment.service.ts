@@ -18,6 +18,7 @@ export class SocketCommentService {
   private url = 'https://localhost:3000';
   private socket;
   constructor(httpCall: HttpClient) {
+    // handshake
     this.socket = io(`${this.url}/comment`);
   }
 
@@ -43,30 +44,45 @@ export class SocketCommentService {
     this.socket.emit('token-verify', token);
   }
 
+/**
+ * tokenverifyMessage
+ */
+public tokenverifyMessage() {
+  return Observable.create((observer) => {
+
+    this.socket.on('verified', (data) => {
+
+      observer.next(data);
+
+    }); // end Socket
+
+  }); // end Observable
+}
+
   /**
    * sendIssueInfoNotify
    */
   public sendIssueInfoNotify(issue) {
-    return Observable.create((observer) => {
-      this.socket.on('verified', (data) => {
-        observer.next(data);
-        // send issue details
-        this.socket.emit('issue', issue);
-      });
-    });
+     // send issue details
+     this.socket.emit('issue', issue);
+    console.log('sendIssueNotify');
   }
 
-
+/**
+ * recievedIssueverificationToRecieveCommentingPrivilage
+ */
+public recievedIssueverificationToRecieveCommentingPrivilage() {
+  return Observable.create((observer) => {
+    this.socket.on('commenting-notification', data => {
+      observer.next(data);
+    });
+  });
+}
   /**
    * getComments
    */
   public getCommentingNotification(comment) {
-    return Observable.create((observer) => {
-      this.socket.on('commenting-notification', data => {
-        this.socket.emit('comment', comment);
-        observer.next(data);
-      });
-    });
+    this.socket.emit('comment', comment);
   }
 
   /**

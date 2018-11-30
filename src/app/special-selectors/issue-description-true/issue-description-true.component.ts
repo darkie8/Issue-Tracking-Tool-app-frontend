@@ -46,11 +46,78 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   activeTestL: boolean;
   activeTestD: boolean;
   comment: any;
+  commentingNotify: any;
+  verifyConnectionData: any;
+  authverificationMessage: any;
+  broadcastForNotificationBox: any;
+  commenting: boolean;
+  comments: any[];
   constructor(private messageService: MessageService,
     private httpservice: IssueTrackingServiceService,
     private sanitizer: DomSanitizer,
-    private commentSocket: SocketCommentService) { }
+    private commentSocket: SocketCommentService) {
+    this.verifyConnection();
+    this.emitIssueWhileGettingTokenVerifcation();
+  }
+  /**
+     * verifyAuthToken
+     */
+  public EmitToverifyAuthToken = () => {
+    console.log('EmitToverifyAuthToken');
 
+    this.commentSocket.tokenVerfication(this.authToken);
+  }
+  /**
+   * verifyConnection
+   */
+  public verifyConnection() {
+    console.log('happening');
+    this.commentSocket.verifyUser().subscribe(
+      verifyMessage => {
+        this.verifyConnectionData = verifyMessage;
+        console.log(this.verifyConnectionData);
+        this.EmitToverifyAuthToken();
+
+      },
+      err => { }
+    );
+  }
+
+
+
+  /**
+   * emitIssueWhileGettingTokenVerifcation
+   */
+  public emitIssueWhileGettingTokenVerifcation() {
+    this.commentSocket.tokenverifyMessage().subscribe(
+      verificationmessage => {
+        this.authverificationMessage = verificationmessage;
+        console.log(this.authverificationMessage);
+
+      }, err => { }
+    );
+  }
+  /**
+   * sendingissue
+   */
+  public sendingissue = (issue): any => {
+    if (this.authverificationMessage === 'send issueInfo') {
+      this.commentSocket.sendIssueInfoNotify(issue);
+    }
+  }
+  /**
+   * gettingCommentPrivilage
+   */
+  public gettingCommentPrivilage() {
+    this.commentSocket.recievedIssueverificationToRecieveCommentingPrivilage()
+      .subscribe(
+        message => {
+          this.broadcastForNotificationBox = message;
+          console.log(this.broadcastForNotificationBox);
+        },
+        err => { }
+      );
+  }
   ngOnInit() {
 
     this.reporterInfo1 = this.reporterInfo;
@@ -130,10 +197,15 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
       }
     ];
 
+    if (this.commenting === true) {
+      this.sendingissue(this.issueTotal);
+    }
   }
   ngOnChanges(changes: SimpleChanges) {
+
     const reporterInfo = changes.reporterInfo;
     this.reporterInfo1 = reporterInfo.currentValue;
+
 
     this.data1 = [
       {
@@ -207,9 +279,9 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
         ]
       }
     ];
-
   }
   onNodeSelect(event) {
+
     setTimeout(() => { this.visibleSidebarfull = true; }, 1000);
     this.messageService.add({ severity: 'success', summary: 'Node Selected', detail: event.node.label });
     this.issueTotal = event.node.data.issueTotal;
@@ -225,15 +297,42 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
     console.log([this.like, this.dislike]);
     this.tags = this.issueTotal.tags;
     console.log(this.tags);
-    this.description = this.sanitizer.bypassSecurityTrustHtml(this.issueTotal.description);
+    this.description = this.issueTotal.description;
     this.label = event.node.label;
     this.createdOn = this.issueTotal.createdOn;
     this.modifiedOn = this.issueTotal.modifiedOn;
+    this.comments = this.createCommentArray(this.authToken, this.issueTotal.comments);
     console.log(this.issueTotal);
 
   }
 
-
+  /**
+    * createCommentArray
+    */
+  public createCommentArray = (auth, commentIdArray) => {
+    if (commentIdArray.length === 0) {
+      return [];
+    }
+    const array = [];
+    for (let i = 0; i < commentIdArray.length;) {
+      this.httpservice.commentPoster(auth, commentIdArray[i])
+        .subscribe(
+          res => {
+            array[i] = res['data'];
+            if (i === commentIdArray.length - 1) {
+              return array;
+            }
+            i++;
+          }, err => {
+            array[i] = 'error fetching this comment';
+            if (i === commentIdArray.length - 1) {
+              return array;
+            }
+            i++;
+          }
+        );
+    }
+  }
 
   public updateTags() {
     this.httpservice.editTags([this.issueTotal.tags, 'default'], this.issueTotal.issueId, this.authToken).subscribe(
@@ -489,19 +588,40 @@ export class IssueDescriptionTrueComponent implements OnInit, OnChanges {
   /**
    * commenting
    */
-  public addComment() {
-    this.commentSocket.verifyUser().subscribe(data => {
-      console.log(data);
-      this.commentSocket.tokenVerfication(this.authToken);
-this.commentSocket.sendIssueInfoNotify(this.issueTotal)
-.subscribe(data1 => {
-  console.log(data1);
-  this.commentSocket.getCommentingNotification(this.comment)
-  .subscribe(data2 => {} , err => {});
-}, err => {})
+  public addComment(comment) {
+    this.commenting = true;
+    this.commentSocket.sendIssueInfoNotify(this.issueTotal);
+    this.commentSocket.recievedIssueverificationToRecieveCommentingPrivilage()
+      .subscribe(
+        notification => {
+          this.messageService.add({ key: 'comment-notify', severity: 'success', summary: 'Node Selected', detail: notification });
+        }, err => { }
+      );
+    const commentSchema = {
+      commentId: {
+        type: String
+      },
+      description: comment,
+      createdBy: `${this.issueTotal.firstName} ${this.issueTotal.lastName}`,
+      createdOn: '',
+      modifiedOn: '',
+      like: 0,
+      likegiver: [],
+      dislike: 0,
+      dislikegiver: []
+    };
 
-    }, err => { });
   }
+
+  /**
+   * emitTypingEvent
+   */
+  public emitTypingEvent() {
+
+    this.commentSocket.typing();
+  }
+
+
 
 
 }

@@ -202,9 +202,9 @@ id,auth   */
       return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletelike/${auth}`, { likegiver: userId });
     }
   }
- /**
-   * dislikeGenerate
-   */
+  /**
+    * dislikeGenerate
+    */
   public dislikeGenerate(userId, issueId, auth, purpose) {
     if (purpose === 'issue') {
       return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/adddislike/${auth}`, { dislikegiver: userId });
@@ -217,6 +217,13 @@ id,auth   */
     if (purpose === 'issue') {
       return this.httpCall.post(`${this.url}/api/v1/issue/${issueId}/deletedislike/${auth}`, { dislikegiver: userId });
     }
+  }
+
+  /**
+   * commentPoster
+   */
+  public commentPoster(auth, commentId) {
+   return this.httpCall.get(`${this.url}/api/v1/${commentId}`, { headers: { authToken: auth } }); 
   }
 }
 

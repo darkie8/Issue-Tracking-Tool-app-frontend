@@ -141,9 +141,16 @@
 
     </div>
   </p-header>
- 
+  <div class="card text-white bg-info mb-3" *ngFor="let comment of Comments; let i=index">
+    <div class="card-header">{{comment.createdBy}}</div>
+    <div class="card-body">
+      <h5 class="card-title">date: {{comment.createdOn | date}}</h5>
+      <p class="card-text" [innerHTML]=''></p>
+    </div>
+  </div>
+   {{commentingNotify}}
   <p-footer>
-    <p-editor [(ngModel)]="comment" [style]="{'height':'320px'}"></p-editor>
+    <p-editor id="editorCommentResport" [(ngModel)]="comment" [style]="{'height':'320px'}"></p-editor>
 
   </p-footer>
   
@@ -163,3 +170,4 @@
 
 </p-sidebar>
 <p-toast  position="top-left" key="updated"></p-toast>
+<p-toast  position="top-left" key="comment-notify"></p-toast>
